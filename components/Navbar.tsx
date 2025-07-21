@@ -6,7 +6,6 @@ import { Dock, DockIcon } from "@/components/magicui/dock";
 import { Home, Sparkles, Wallet, Info, Mail } from "lucide-react";
 import { Sun, Moon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { BlurredCircleBg } from "@/components/magicui/blurred-circle-bg";
 
 export type IconProps = React.HTMLAttributes<SVGElement>;
 

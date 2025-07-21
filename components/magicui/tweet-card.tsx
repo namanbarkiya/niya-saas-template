@@ -213,12 +213,12 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
             )}
             {!tweet.video &&
                 !tweet.photos &&
-                // @ts-ignore
+                // @ts-expect-error: Twitter card binding_values may be missing or have unexpected shape
                 tweet?.card?.binding_values?.thumbnail_image_large?.image_value
                     .url && (
                     <img
                         src={
-                            // @ts-ignore
+                            // @ts-expect-error: Twitter card binding_values may be missing or have unexpected shape
                             tweet.card.binding_values.thumbnail_image_large
                                 .image_value.url
                         }

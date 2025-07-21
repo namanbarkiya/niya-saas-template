@@ -5,10 +5,6 @@ import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import { WordRotate } from "@/components/magicui/word-rotate";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
-import {
-    BlurredCircleBg,
-    BlurredWhiteCircleBg,
-} from "@/components/magicui/blurred-circle-bg";
 
 export default function Hero() {
     return (
