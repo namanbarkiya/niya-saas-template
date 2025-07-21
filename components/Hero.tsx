@@ -5,10 +5,38 @@ import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import { WordRotate } from "@/components/magicui/word-rotate";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
+import {
+    BlurredCircleBg,
+    BlurredWhiteCircleBg,
+} from "@/components/magicui/blurred-circle-bg";
 
 export default function Hero() {
     return (
-        <section className="relative flex min-h-[80vh] flex-col items-center justify-center px-4 py-24 bg-gradient-to-br from-white via-pink-50 to-blue-50 dark:from-[#2e2240] dark:via-[#1e293b] dark:to-[#0f172a] overflow-hidden">
+        <section className="relative flex min-h-[80vh] flex-col items-center justify-center px-4 py-24  overflow-hidden">
+            {/* <BlurredCircleBg
+                size="h-[32rem] w-[32rem]"
+                position="left-1/2 top-1/3 -translate-x-1/5 -translate-y-1/2"
+                colors="bg-gradient-to-br from-pink-100/20 via-blue-100/10 to-white/0"
+                blur="blur-3xl"
+            />
+            <BlurredWhiteCircleBg
+                size="h-40 w-40"
+                position="top-10 left-10"
+                blur="blur-2xl"
+                zIndex="-z-20"
+            />
+            <BlurredWhiteCircleBg
+                size="h-32 w-32"
+                position="bottom-10 right-20"
+                blur="blur-2xl"
+                zIndex="-z-20"
+            />
+            <BlurredWhiteCircleBg
+                size="h-24 w-24"
+                position="top-1/2 right-10 -translate-y-1/2"
+                blur="blur-xl"
+                zIndex="-z-20"
+            /> */}
             <div className="flex flex-col items-center gap-6 w-full max-w-2xl mx-auto">
                 <div className="z-10 flex items-center justify-center">
                     <div
@@ -44,9 +72,9 @@ export default function Hero() {
                     </InteractiveHoverButton>
                 </div>
             </div>
-            <div className="pointer-events-none absolute inset-0 -z-10">
+            {/* <div className="pointer-events-none absolute inset-0 -z-10">
                 <div className="absolute left-1/2 top-1/3 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-pink-100/40 via-blue-100/30 to-white/0 blur-3xl" />
-            </div>
+            </div> */}
         </section>
     );
 }
