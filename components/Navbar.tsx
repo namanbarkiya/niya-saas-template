@@ -26,7 +26,7 @@ export default function Navbar() {
     };
 
     return (
-        <div className="absolute top-0 left-0 w-full z-50">
+        <div className="fixed top-0 left-0 w-full z-50">
             {/* <BlurredCircleBg /> */}
             <div className="flex items-center justify-between w-full px-6 pt-2">
                 <Dock iconMagnification={60} iconDistance={100}>
@@ -46,18 +46,18 @@ export default function Navbar() {
                         <Mail className="size-full text-neutral-600  dark:text-neutral-300/70" />
                     </DockIcon>
                 </Dock>
-                <button
-                    aria-label="Toggle dark mode"
-                    onClick={toggleDark}
-                    className="ml-4 rounded-full p-2 transition-colors hover:bg-neutral-200 dark:hover:bg-neutral-800"
-                >
-                    {isDark ? (
-                        <Sun className="size-6 text-yellow-500" />
-                    ) : (
-                        <Moon className="size-6 text-neutral-700" />
-                    )}
-                </button>
             </div>
+            <button
+                aria-label="Toggle dark mode"
+                onClick={toggleDark}
+                className="absolute top-4 right-6 rounded-full p-2 transition-colors hover:bg-neutral-200 dark:hover:bg-neutral-800 z-50"
+            >
+                {isDark ? (
+                    <Sun className="size-6 text-yellow-500" />
+                ) : (
+                    <Moon className="size-6 text-neutral-700" />
+                )}
+            </button>
         </div>
     );
 }
