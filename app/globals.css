@@ -112,6 +112,35 @@
   --sidebar-ring: oklch(0.553 0.013 58.071);
 }
 
+@keyframes shiny-text {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shiny-text {
+  animation: shiny-text 2.5s linear infinite;
+}
+
+@keyframes aurora {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-aurora {
+  animation: aurora 6s linear infinite;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

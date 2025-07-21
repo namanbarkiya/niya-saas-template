@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, DM_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
 
 const dmSans = DM_Sans({
     subsets: ["latin"],
@@ -25,6 +26,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${dmSans.className} antialiased`}>
+                <Navbar />
                 <div className="flex flex-col min-h-screen">
                     <main className="flex-grow">{children}</main>
                     <footer className="text-center py-4">
