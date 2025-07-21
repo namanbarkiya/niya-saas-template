@@ -39,7 +39,7 @@ export default function Hero() {
                     />
                 </div>
                 <div className="mt-6">
-                    <InteractiveHoverButton className="text-lg px-8 py-3">
+                    <InteractiveHoverButton className="text-base px-8 py-3">
                         Get Started
                     </InteractiveHoverButton>
                 </div>
