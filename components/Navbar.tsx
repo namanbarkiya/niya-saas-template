@@ -42,22 +42,19 @@ export default function Navbar() {
                     <DockIcon>
                         <Info className="size-full text-neutral-600  dark:text-neutral-300/70" />
                     </DockIcon>
-                    <DockIcon>
-                        <Mail className="size-full text-neutral-600  dark:text-neutral-300/70" />
+                    <DockIcon
+                        onClick={toggleDark}
+                        aria-label="Toggle dark mode"
+                        className="cursor-pointer"
+                    >
+                        {isDark ? (
+                            <Sun className="size-full text-yellow-500" />
+                        ) : (
+                            <Moon className="size-full text-neutral-700" />
+                        )}
                     </DockIcon>
                 </Dock>
             </div>
-            <button
-                aria-label="Toggle dark mode"
-                onClick={toggleDark}
-                className="absolute top-4 right-6 rounded-full p-2 transition-colors hover:bg-neutral-200 dark:hover:bg-neutral-800 z-50"
-            >
-                {isDark ? (
-                    <Sun className="size-6 text-yellow-500" />
-                ) : (
-                    <Moon className="size-6 text-neutral-700" />
-                )}
-            </button>
         </div>
     );
 }
