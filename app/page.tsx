@@ -1,8 +1,8 @@
 import React from "react";
-import Hero from "@/components/Hero";
-import BentoDemo from "@/components/bentoGridComponent";
-import { SectionHeader } from "@/components/ui/SectionHeader";
-import { ScrollProgress } from "@/components/magicui/scroll-progress";
+import Hero from "@/components/landing/sections/hero";
+import Features from "@/components/landing/sections/features";
+import { SectionHeader } from "@/components/landing/section-header";
+import { ScrollProgress } from "@/components/landing/magicui/scroll-progress";
 
 export default function LandingPage() {
     return (
@@ -10,7 +10,7 @@ export default function LandingPage() {
             <ScrollProgress />
             <Hero />
             <SectionHeader title="Features for you" />
-            <BentoDemo />
+            <Features />
         </div>
     );
 }

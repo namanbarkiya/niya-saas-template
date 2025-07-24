@@ -1,8 +1,8 @@
 import React from "react";
-import { AuroraText } from "@/components/magicui/aurora-text";
-import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
-import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
-import { WordRotate } from "@/components/magicui/word-rotate";
+import { AuroraText } from "@/components/landing/magicui/aurora-text";
+import { InteractiveHoverButton } from "@/components/landing/magicui/interactive-hover-button";
+import { AnimatedShinyText } from "@/components/landing/magicui/animated-shiny-text";
+import { WordRotate } from "@/components/landing/magicui/word-rotate";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
 

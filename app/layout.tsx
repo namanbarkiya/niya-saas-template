@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { DM_Sans, DM_Mono } from "next/font/google";
+import { DM_Sans } from "next/font/google";
+import Navbar from "@/components/landing/navbar";
+
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import { Pointer } from "@/components/magicui/pointer";
 
 const dmSans = DM_Sans({
     subsets: ["latin"],

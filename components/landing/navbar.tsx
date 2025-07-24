@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { Dock, DockIcon } from "@/components/magicui/dock";
+import { Dock, DockIcon } from "@/components/landing/magicui/dock";
 import { Home, Sparkles, Wallet, Info, Mail } from "lucide-react";
 import { Sun, Moon } from "lucide-react";
 import { useEffect, useState } from "react";

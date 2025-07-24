@@ -3,10 +3,10 @@ import { BellIcon, Share2Icon } from "lucide-react";
 
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
-import AnimatedBeamMultipleOutputDemo from "./animated-beam-demo";
-import AnimatedListDemo from "./animated-list-demo";
-import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid";
-import { Marquee } from "@/components/magicui/marquee";
+import AnimatedBeamMultipleOutputDemo from "../animated-beam-demo";
+import AnimatedListDemo from "../animated-list-demo";
+import { BentoCard, BentoGrid } from "@/components/landing/magicui/bento-grid";
+import { Marquee } from "@/components/landing/magicui/marquee";
 
 const files = [
     {
@@ -108,7 +108,7 @@ const features = [
     },
 ];
 
-export default function BentoDemo() {
+export default function Features() {
     return (
         <BentoGrid>
             {features.map((feature, idx) => (
