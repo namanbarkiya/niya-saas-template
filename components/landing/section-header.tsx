@@ -10,7 +10,7 @@ export function SectionHeader({ title, className }: SectionHeaderProps) {
     return (
         <h2
             className={cn(
-                "text-3xl lg:text-5xl font-semibold mb-6 md:mb-10 text-center md:text-left tracking-tighter",
+                "text-3xl lg:text-5xl font-semibold text-center md:text-left tracking-tighter mb-6 sm:mb-10 mt-28 sm:mt-52",
                 className
             )}
         >

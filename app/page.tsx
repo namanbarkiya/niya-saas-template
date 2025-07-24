@@ -10,9 +10,9 @@ export default function LandingPage() {
         <div className="flex flex-col items-center justify-center max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8">
             <ScrollProgress />
             <Hero />
-            <SectionHeader title="Features for you" />
+            <SectionHeader title="Features for you" className="mt-0!" />
             <Features />
-            <SectionHeader title="What people are saying" className="mt-28" />
+            <SectionHeader title="What people are saying" />
             <TweetGallery />
         </div>
     );
