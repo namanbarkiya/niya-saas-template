@@ -9,7 +9,7 @@ export default function LandingPage() {
         <div className="flex flex-col items-center justify-center max-w-screen-lg mx-auto px-4 sm:px-6 md:px-8">
             <ScrollProgress />
             <Hero />
-            <SectionHeader title="Features for you" className="my-16" />
+            <SectionHeader title="Features for you" />
             <BentoDemo />
         </div>
     );
