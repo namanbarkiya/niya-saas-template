@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export default function Hero() {
     return (
-        <section className="relative flex min-h-[60vh] flex-col items-center justify-center px-4 py-12 overflow-hidden">
+        <section className="relative flex min-h-[60vh] flex-col items-center justify-center px-4 pt-24 pb-12 overflow-hidden">
             {/* <BlurredCircleBg
                 size="h-[32rem] w-[32rem]"
                 position="left-1/2 top-1/3 -translate-x-1/5 -translate-y-1/2"
