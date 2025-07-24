@@ -9,7 +9,7 @@ import {
     useSpring,
     useTransform,
 } from "framer-motion";
-import React, { PropsWithChildren, useRef } from "react";
+import React, { PropsWithChildren, useRef, useState, useEffect } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -26,6 +26,22 @@ const DEFAULT_SIZE = 40;
 const DEFAULT_MAGNIFICATION = 60;
 const DEFAULT_DISTANCE = 140;
 
+const MOBILE_DEFAULT_SIZE = 30;
+const MOBILE_DEFAULT_MAGNIFICATION = 50;
+const MOBILE_DEFAULT_DISTANCE = 120;
+
+function useIsMobileSSR() {
+    const [isMobile, setIsMobile] = useState<null | boolean>(null);
+    useEffect(() => {
+        const check = () =>
+            setIsMobile(window.matchMedia("(max-width: 640px)").matches);
+        check();
+        window.addEventListener("resize", check);
+        return () => window.removeEventListener("resize", check);
+    }, []);
+    return isMobile;
+}
+
 const dockVariants = cva(
     "supports-backdrop-blur:bg-white/10 supports-backdrop-blur:dark:bg-black/10 mx-auto mt-8 flex h-[58px] w-max items-center justify-center gap-2 rounded-2xl border p-2 backdrop-blur-md"
 );
@@ -35,15 +51,27 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
         {
             className,
             children,
-            iconSize = DEFAULT_SIZE,
-            iconMagnification = DEFAULT_MAGNIFICATION,
-            iconDistance = DEFAULT_DISTANCE,
+            iconSize,
+            iconMagnification,
+            iconDistance,
             direction = "middle",
             ...props
         },
         ref
     ) => {
+        // Mobile detection (SSR-safe)
+        const isMobile = useIsMobileSSR();
         const mouseX = useMotionValue(Infinity);
+        if (isMobile === null) return null; // Don't render until we know
+
+        const resolvedIconSize =
+            iconSize ?? (isMobile ? MOBILE_DEFAULT_SIZE : DEFAULT_SIZE);
+        const resolvedIconMagnification =
+            iconMagnification ??
+            (isMobile ? MOBILE_DEFAULT_MAGNIFICATION : DEFAULT_MAGNIFICATION);
+        const resolvedIconDistance =
+            iconDistance ??
+            (isMobile ? MOBILE_DEFAULT_DISTANCE : DEFAULT_DISTANCE);
 
         const renderChildren = () => {
             return React.Children.map(children, (child) => {
@@ -54,9 +82,9 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
                     return React.cloneElement(child, {
                         ...child.props,
                         mouseX: mouseX,
-                        size: iconSize,
-                        magnification: iconMagnification,
-                        distance: iconDistance,
+                        size: resolvedIconSize,
+                        magnification: resolvedIconMagnification,
+                        distance: resolvedIconDistance,
                     });
                 }
                 return child;
@@ -68,6 +96,13 @@ const Dock = React.forwardRef<HTMLDivElement, DockProps>(
                 ref={ref}
                 onMouseMove={(e) => mouseX.set(e.pageX)}
                 onMouseLeave={() => mouseX.set(Infinity)}
+                onTouchStart={(e) => {
+                    if (e.touches && e.touches.length > 0) {
+                        mouseX.set(e.touches[0].pageX);
+                    }
+                }}
+                onTouchEnd={() => mouseX.set(Infinity)}
+                onTouchCancel={() => mouseX.set(Infinity)}
                 {...props}
                 className={cn(dockVariants({ className }), {
                     "items-start": direction === "top",
@@ -133,6 +168,11 @@ const DockIcon = ({
         damping: 12,
     });
 
+    // Add touch end/cancel handlers to reset mouseX
+    const handleTouchEnd = () => {
+        if (mouseX) mouseX.set(Infinity);
+    };
+
     return (
         <motion.div
             ref={ref}
@@ -141,6 +181,8 @@ const DockIcon = ({
                 "flex aspect-square cursor-pointer items-center justify-center rounded-full",
                 className
             )}
+            onTouchEnd={handleTouchEnd}
+            onTouchCancel={handleTouchEnd}
             {...props}
         >
             {children}

@@ -1,29 +1,16 @@
 "use client";
 
 import React from "react";
+import { Home, Sparkles, Wallet, Info, Moon } from "lucide-react";
 
 import { Dock, DockIcon } from "@/components/landing/magicui/dock";
-import { Home, Sparkles, Wallet, Info, Mail } from "lucide-react";
-import { Sun, Moon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useDarkMode } from "@/lib/useDarkMode";
+import { cn } from "@/lib/utils";
 
 export type IconProps = React.HTMLAttributes<SVGElement>;
 
 export default function Navbar() {
-    const [isDark, setIsDark] = useState(false);
-
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            setIsDark(document.documentElement.classList.contains("dark"));
-        }
-    }, []);
-
-    const toggleDark = () => {
-        if (typeof window !== "undefined") {
-            document.documentElement.classList.toggle("dark");
-            setIsDark(document.documentElement.classList.contains("dark"));
-        }
-    };
+    const [isDark, toggleDark] = useDarkMode();
 
     return (
         <div className="fixed top-0 left-0 w-full z-50">
@@ -42,16 +29,14 @@ export default function Navbar() {
                     <DockIcon>
                         <Info className="size-full text-neutral-600  dark:text-neutral-300/70" />
                     </DockIcon>
-                    <DockIcon
-                        onClick={toggleDark}
-                        aria-label="Toggle dark mode"
-                        className="cursor-pointer"
-                    >
-                        {isDark ? (
-                            <Sun className="size-full text-yellow-500" />
-                        ) : (
-                            <Moon className="size-full text-neutral-700" />
-                        )}
+                    <DockIcon>
+                        <Moon
+                            className={cn(
+                                "size-full text-gray-600",
+                                isDark && "dark:text-yellow-400"
+                            )}
+                            onClick={toggleDark}
+                        />
                     </DockIcon>
                 </Dock>
             </div>
