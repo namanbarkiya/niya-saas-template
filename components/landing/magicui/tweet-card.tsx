@@ -244,7 +244,7 @@ export const MagicTweet = ({
     return (
         <div
             className={cn(
-                "relative flex size-full max-w-lg flex-col gap-2 overflow-hidden rounded-lg border p-4 backdrop-blur-md",
+                "relative flex size-full max-w-lg flex-col gap-2 overflow-hidden rounded-lg border p-4 backdrop-blur-md transition-transform duration-200 hover:scale-105 hover:shadow-xl",
                 className
             )}
             {...props}
@@ -261,14 +261,18 @@ export const MagicTweet = ({
  */
 export const TweetCard = async ({
     id,
+    mockTweet,
     components,
     fallback = <TweetSkeleton />,
     onError,
     ...props
 }: TweetProps & {
     className?: string;
+    mockTweet?: Tweet;
 }) => {
-    const tweet = id
+    const tweet = mockTweet
+        ? mockTweet
+        : id
         ? await getTweet(id).catch((err) => {
               if (onError) {
                   onError(err);
