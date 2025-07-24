@@ -12,7 +12,7 @@ export default function TweetGallery() {
         <div className="columns-1 sm:columns-2 md:columns-3 gap-6 space-y-6">
             {tweets.map((tweet) => (
                 <div key={tweet.key} className="mb-6 break-inside-avoid">
-                    <TweetCard id={tweet.id} className="shadow-2xl h-fit" />
+                    <TweetCard id={tweet.id} className="h-fit" />
                 </div>
             ))}
         </div>

@@ -7,12 +7,12 @@ import { ScrollProgress } from "@/components/landing/magicui/scroll-progress";
 
 export default function LandingPage() {
     return (
-        <div className="flex flex-col items-center justify-center max-w-screen-lg mx-auto px-4 sm:px-6 md:px-8">
+        <div className="flex flex-col items-center justify-center max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8">
             <ScrollProgress />
             <Hero />
             <SectionHeader title="Features for you" />
             <Features />
-            <SectionHeader title="Tweets" className="mt-28" />
+            <SectionHeader title="What people are saying" className="mt-28" />
             <TweetGallery />
         </div>
     );
