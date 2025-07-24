@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, DM_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { Pointer } from "@/components/magicui/pointer";
 
 const dmSans = DM_Sans({
     subsets: ["latin"],
@@ -23,6 +24,7 @@ export default function RootLayout({
             <body className={`${dmSans.className} antialiased`}>
                 <Navbar />
                 <div className="flex flex-col min-h-screen">
+                    {/* <Pointer className="fill-blue-500" /> */}
                     <main className="flex-grow">{children}</main>
                     <footer className="text-center py-4">
                         <p>© 2025 Your Company. All rights reserved.</p>

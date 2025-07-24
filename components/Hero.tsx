@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 export default function Hero() {
     return (
-        <section className="relative flex min-h-[80vh] flex-col items-center justify-center px-4 py-24  overflow-hidden">
+        <section className="relative flex min-h-[60vh] flex-col items-center justify-center px-4 py-12 overflow-hidden">
             {/* <BlurredCircleBg
                 size="h-[32rem] w-[32rem]"
                 position="left-1/2 top-1/3 -translate-x-1/5 -translate-y-1/2"
@@ -46,7 +46,7 @@ export default function Hero() {
                         </AnimatedShinyText>
                     </div>
                 </div>
-                <h1 className="text-4xl md:text-6xl font-extrabold text-center tracking-tighter">
+                <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold text-center tracking-tighter">
                     Elevate your workflow with <AuroraText>AI</AuroraText>{" "}
                     automation
                 </h1>
@@ -58,7 +58,7 @@ export default function Hero() {
                             "Seamless SaaS integration.",
                             "Boost productivity effortlessly.",
                         ]}
-                        className="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 font-medium min-h-[2.5rem]"
+                        className="text-lg md:text-xl lg:text-2xl text-neutral-600 dark:text-neutral-300 font-medium min-h-[2.5rem]"
                         duration={2200}
                     />
                 </div>
