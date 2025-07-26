@@ -3,7 +3,7 @@ import { AuthGuard } from "@/components/auth";
 import { GalleryVerticalEnd } from "lucide-react";
 import Image from "next/image";
 
-export default function LoginPage() {
+export default function SignupPage() {
     return (
         <AuthGuard requireAuth={false} redirectTo="/dashboard">
             <div className="grid min-h-svh lg:grid-cols-2">
@@ -21,7 +21,7 @@ export default function LoginPage() {
                     </div>
                     <div className="flex flex-1 items-center justify-center">
                         <div className="w-full max-w-xs">
-                            <AuthForm mode="login" />
+                            <AuthForm mode="signup" />
                         </div>
                     </div>
                 </div>

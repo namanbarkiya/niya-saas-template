@@ -1,17 +1,13 @@
-import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
+import { AuthGuard } from "@/components/auth";
 
-export default async function DashboardLayout({
+export default function DashboardLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    const supabase = await createClient();
-
-    const { data, error } = await supabase.auth.getUser();
-    if (error || !data?.user) {
-        redirect("/login");
-    }
-
-    return <div>{children}</div>;
+    return (
+        <AuthGuard requireAuth={true} redirectTo="/login">
+            <div>{children}</div>
+        </AuthGuard>
+    );
 }

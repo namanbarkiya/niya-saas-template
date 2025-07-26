@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
+import { QueryProvider, AuthProvider } from "@/components/providers";
 
 import "./globals.css";
 
@@ -40,9 +41,13 @@ export default function RootLayout({
                 />
             </head>
             <body className={`${dmSans.className} antialiased`}>
-                <div className="flex flex-col min-h-screen">
-                    <main className="flex-grow">{children}</main>
-                </div>
+                <QueryProvider>
+                    <AuthProvider>
+                        <div className="flex flex-col min-h-screen">
+                            <main className="flex-grow">{children}</main>
+                        </div>
+                    </AuthProvider>
+                </QueryProvider>
             </body>
         </html>
     );
