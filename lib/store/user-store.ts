@@ -12,7 +12,7 @@ export interface User {
 
 export interface AuthState {
     user: User | null;
-    session: any | null;
+    session: unknown | null;
     isLoading: boolean;
     isAuthenticated: boolean;
 }
@@ -28,7 +28,7 @@ export interface UserStore extends AuthState {
 
     // Actions
     setUser: (user: User | null) => void;
-    setSession: (session: any | null) => void;
+    setSession: (session: unknown | null) => void;
     setLoading: (loading: boolean) => void;
     setAuthenticated: (authenticated: boolean) => void;
     setPreferences: (preferences: Partial<UserPreferences>) => void;
@@ -44,7 +44,7 @@ const defaultPreferences: UserPreferences = {
 
 export const useUserStore = create<UserStore>()(
     persist(
-        (set, get) => ({
+        (set) => ({
             // Initial state
             user: null,
             session: null,

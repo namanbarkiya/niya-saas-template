@@ -39,7 +39,6 @@ export const AuthForm: React.FC<AuthFormProps> = ({
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
-        watch,
     } = useForm<LoginFormData | SignupFormData>({
         resolver: zodResolver(schema),
         mode: "onChange",
@@ -82,11 +81,14 @@ export const AuthForm: React.FC<AuthFormProps> = ({
                 {!isLogin && (
                     <FormField
                         label="Name"
-                        error={errors.name?.message}
+                        error={
+                            (errors as Record<string, { message?: string }>)
+                                .name?.message
+                        }
                         required
                     >
                         <Input
-                            {...register("name")}
+                            {...register("name" as keyof SignupFormData)}
                             type="text"
                             placeholder="John Doe"
                             autoComplete="name"
@@ -132,11 +134,16 @@ export const AuthForm: React.FC<AuthFormProps> = ({
                 {!isLogin && (
                     <FormField
                         label="Confirm Password"
-                        error={errors.confirmPassword?.message}
+                        error={
+                            (errors as Record<string, { message?: string }>)
+                                .confirmPassword?.message
+                        }
                         required
                     >
                         <Input
-                            {...register("confirmPassword")}
+                            {...register(
+                                "confirmPassword" as keyof SignupFormData
+                            )}
                             type="password"
                             autoComplete="new-password"
                         />

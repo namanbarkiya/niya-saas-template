@@ -8,11 +8,9 @@ import { useState } from "react";
 export function LoginForm({
     className,
     login,
-    signup,
     ...props
 }: React.ComponentPropsWithoutRef<"form"> & {
     login: (formData: FormData) => Promise<void>;
-    signup: (formData: FormData) => Promise<void>;
 }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

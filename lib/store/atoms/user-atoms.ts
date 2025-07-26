@@ -4,7 +4,7 @@ import { User } from "../user-store";
 
 // User authentication atoms
 export const userAtom = atom<User | null>(null);
-export const sessionAtom = atom<any | null>(null);
+export const sessionAtom = atom<unknown | null>(null);
 export const authLoadingAtom = atom<boolean>(false);
 export const isAuthenticatedAtom = atom<boolean>(false);
 
@@ -23,7 +23,7 @@ export const notificationsAtom = atomWithStorage<boolean>(
 // Form state atoms
 export const formErrorsAtom = atom<Record<string, string[]>>({});
 export const formLoadingAtom = atom<boolean>(false);
-export const formDataAtom = atom<Record<string, any>>({});
+export const formDataAtom = atom<Record<string, unknown>>({});
 
 // Navigation state atoms
 export const sidebarOpenAtom = atom<boolean>(false);

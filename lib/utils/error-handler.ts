@@ -4,11 +4,11 @@ export interface AppError {
     message: string;
     code?: string;
     status?: number;
-    details?: any;
+    details?: unknown;
 }
 
 export class ErrorHandler {
-    static handle(error: any, context?: string): void {
+    static handle(error: unknown, context?: string): void {
         console.error(`Error in ${context || "unknown context"}:`, error);
 
         // Extract error message and details
@@ -18,21 +18,29 @@ export class ErrorHandler {
         this.showErrorToast(errorInfo);
     }
 
-    private static extractErrorInfo(error: any): AppError {
+    private static extractErrorInfo(error: unknown): AppError {
+        const errorObj = error as {
+            message?: string;
+            status?: number;
+            code?: string;
+            details?: unknown;
+            name?: string;
+        };
+
         // Handle Supabase errors
-        if (error?.message && error?.status) {
+        if (errorObj?.message && errorObj?.status) {
             return {
-                message: error.message,
-                status: error.status,
-                code: error.code,
-                details: error.details,
+                message: errorObj.message,
+                status: errorObj.status,
+                code: errorObj.code,
+                details: errorObj.details,
             };
         }
 
         // Handle network errors
         if (
-            error?.name === "NetworkError" ||
-            error?.message?.includes("network")
+            errorObj?.name === "NetworkError" ||
+            errorObj?.message?.includes("network")
         ) {
             return {
                 message:
@@ -43,7 +51,7 @@ export class ErrorHandler {
         }
 
         // Handle authentication errors
-        if (error?.message?.includes("Invalid login credentials")) {
+        if (errorObj?.message?.includes("Invalid login credentials")) {
             return {
                 message: "Invalid email or password. Please try again.",
                 code: "AUTH_INVALID_CREDENTIALS",
@@ -51,7 +59,7 @@ export class ErrorHandler {
             };
         }
 
-        if (error?.message?.includes("Email not confirmed")) {
+        if (errorObj?.message?.includes("Email not confirmed")) {
             return {
                 message:
                     "Please check your email and confirm your account before logging in.",
@@ -60,7 +68,7 @@ export class ErrorHandler {
             };
         }
 
-        if (error?.message?.includes("User already registered")) {
+        if (errorObj?.message?.includes("User already registered")) {
             return {
                 message:
                     "An account with this email already exists. Please try logging in instead.",
@@ -69,7 +77,7 @@ export class ErrorHandler {
             };
         }
 
-        if (error?.message?.includes("Password should be at least")) {
+        if (errorObj?.message?.includes("Password should be at least")) {
             return {
                 message: "Password must be at least 6 characters long.",
                 code: "AUTH_WEAK_PASSWORD",
@@ -78,24 +86,25 @@ export class ErrorHandler {
         }
 
         // Handle validation errors
-        if (error?.name === "ZodError") {
-            const firstError = error.errors?.[0];
+        if (errorObj?.name === "ZodError") {
+            const zodError = error as { errors?: Array<{ message?: string }> };
+            const firstError = zodError.errors?.[0];
             return {
                 message:
                     firstError?.message ||
                     "Please check your input and try again.",
                 code: "VALIDATION_ERROR",
                 status: 400,
-                details: error.errors,
+                details: zodError.errors,
             };
         }
 
         // Handle generic errors
-        if (error?.message) {
+        if (errorObj?.message) {
             return {
-                message: error.message,
-                code: error.code || "UNKNOWN_ERROR",
-                status: error.status || 500,
+                message: errorObj.message,
+                code: errorObj.code || "UNKNOWN_ERROR",
+                status: errorObj.status || 500,
             };
         }
 

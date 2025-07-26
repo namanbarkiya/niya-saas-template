@@ -75,7 +75,16 @@ export const useLogin = () => {
             setLoading(true);
         },
         onSuccess: (data) => {
-            setUser(data.user);
+            if (data.user && data.user.email) {
+                setUser({
+                    id: data.user.id,
+                    email: data.user.email as string,
+                    name: data.user.user_metadata?.name,
+                    avatar_url: data.user.user_metadata?.avatar_url,
+                    created_at: data.user.created_at,
+                    updated_at: data.user.updated_at || data.user.created_at,
+                });
+            }
             setSession(data.session);
             setLoading(false);
 
@@ -85,7 +94,7 @@ export const useLogin = () => {
 
             ErrorHandler.showSuccess("Login Successful", "Welcome back!");
         },
-        onError: (error: any) => {
+        onError: (error: unknown) => {
             setLoading(false);
             ErrorHandler.handle(error, "login");
         },
@@ -94,7 +103,6 @@ export const useLogin = () => {
 
 // Hook for signup mutation
 export const useSignup = () => {
-    const queryClient = useQueryClient();
     const { setLoading } = useUserStore();
 
     return useMutation({
@@ -142,7 +150,7 @@ export const useSignup = () => {
                 );
             }
         },
-        onError: (error: any) => {
+        onError: (error: unknown) => {
             setLoading(false);
             ErrorHandler.handle(error, "signup");
         },
@@ -174,7 +182,7 @@ export const useLogout = () => {
                 "You have been successfully logged out."
             );
         },
-        onError: (error: any) => {
+        onError: (error: unknown) => {
             ErrorHandler.handle(error, "logout");
         },
     });

@@ -40,7 +40,7 @@ const initialState: AppState = {
     maintenanceMode: false,
 };
 
-export const useAppStore = create<AppStore>()((set, get) => ({
+export const useAppStore = create<AppStore>()((set) => ({
     ...initialState,
 
     // Loading actions

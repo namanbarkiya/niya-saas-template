@@ -13,8 +13,8 @@ export interface Notification {
 export interface Modal {
     id: string;
     isOpen: boolean;
-    component: React.ComponentType<any> | null;
-    props?: Record<string, any>;
+    component: React.ComponentType<unknown> | null;
+    props?: Record<string, unknown>;
 }
 
 export interface UIState {
@@ -44,8 +44,8 @@ export interface UIStore extends UIState {
     // Modal actions
     openModal: (
         id: string,
-        component: React.ComponentType<any>,
-        props?: Record<string, any>
+        component: React.ComponentType<unknown>,
+        props?: Record<string, unknown>
     ) => void;
     closeModal: (id: string) => void;
     closeAllModals: () => void;
