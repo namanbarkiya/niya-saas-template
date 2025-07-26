@@ -64,7 +64,7 @@
 
 ```bash
 git clone https://github.com/namanbarkiya/niya-saas-template.git
-cd modern-next-landing
+cd niya-saas-template
 ```
 
 2. **Install dependencies**
@@ -109,7 +109,7 @@ bun dev
 ## 📁 Project Structure
 
 ```
-modern-next-landing/
+niya-saas-template/
 ├── app/                    # Next.js 15 App Router
 │   ├── api/               # API routes
 │   ├── dashboard/         # Protected dashboard pages
@@ -229,7 +229,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🌟 Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=namanbarkiya/modern-next-landing&type=Date)](https://star-history.com/#namanbarkiya/modern-next-landing&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=namanbarkiya/niya-saas-template&type=Date)](https://star-history.com/#namanbarkiya/niya-saas-template&Date)
 
 ---
 

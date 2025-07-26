@@ -3,7 +3,7 @@
 ## **RECOMMENDED PROJECT STRUCTURE**
 
 ```
-modern-next-landing/
+niya-saas-template/
 ├── app/                          # Next.js 15 App Router
 │   ├── (auth)/                   # Route groups for auth pages
 │   │   ├── login/
