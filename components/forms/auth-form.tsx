@@ -14,6 +14,7 @@ import {
     SignupFormData,
 } from "@/lib/validations/auth";
 import { useLogin, useSignup } from "@/lib/query/hooks/auth";
+// import { useErrorHandler } from "@/lib/hooks/use-error-handler";
 
 interface AuthFormProps {
     mode: "login" | "signup";
@@ -28,6 +29,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({
 }) => {
     const loginMutation = useLogin();
     const signupMutation = useSignup();
+    // const { handleError } = useErrorHandler();
 
     const isLogin = mode === "login";
     const schema = isLogin ? loginSchema : signupSchema;
@@ -52,7 +54,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({
             }
             onSuccess?.();
         } catch (error) {
-            // Error handling is done in the mutation hooks
+            // Error handling is done in the mutation hooks via ErrorHandler
+            // handleError(error, `auth-form-${mode}`);
             console.error("Auth error:", error);
         }
     };

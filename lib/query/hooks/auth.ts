@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createClient } from "@/lib/supabase/client";
 import { queryKeys } from "../client";
 import { useUserStore } from "@/lib/store/user-store";
-import { useUIStore } from "@/lib/store/ui-store";
+import { ErrorHandler } from "@/lib/utils/error-handler";
 
 // Hook to get current user
 export const useCurrentUser = () => {
@@ -50,7 +50,6 @@ export const useCurrentSession = () => {
 export const useLogin = () => {
     const queryClient = useQueryClient();
     const { setUser, setSession, setLoading } = useUserStore();
-    const { addNotification } = useUIStore();
 
     return useMutation({
         mutationFn: async ({
@@ -84,19 +83,11 @@ export const useLogin = () => {
             queryClient.invalidateQueries({ queryKey: queryKeys.auth.user });
             queryClient.invalidateQueries({ queryKey: queryKeys.auth.session });
 
-            addNotification({
-                type: "success",
-                title: "Login Successful",
-                message: "Welcome back!",
-            });
+            ErrorHandler.showSuccess("Login Successful", "Welcome back!");
         },
         onError: (error: any) => {
             setLoading(false);
-            addNotification({
-                type: "error",
-                title: "Login Failed",
-                message: error.message || "Failed to login. Please try again.",
-            });
+            ErrorHandler.handle(error, "login");
         },
     });
 };
@@ -105,7 +96,6 @@ export const useLogin = () => {
 export const useSignup = () => {
     const queryClient = useQueryClient();
     const { setLoading } = useUserStore();
-    const { addNotification } = useUIStore();
 
     return useMutation({
         mutationFn: async ({
@@ -141,29 +131,20 @@ export const useSignup = () => {
             setLoading(false);
 
             if (data.user && !data.session) {
-                addNotification({
-                    type: "success",
-                    title: "Account Created",
-                    message: "Please check your email to confirm your account.",
-                });
+                ErrorHandler.showSuccess(
+                    "Account Created",
+                    "Please check your email to confirm your account."
+                );
             } else {
-                addNotification({
-                    type: "success",
-                    title: "Account Created",
-                    message:
-                        "Welcome! Your account has been created successfully.",
-                });
+                ErrorHandler.showSuccess(
+                    "Account Created",
+                    "Welcome! Your account has been created successfully."
+                );
             }
         },
         onError: (error: any) => {
             setLoading(false);
-            addNotification({
-                type: "error",
-                title: "Signup Failed",
-                message:
-                    error.message ||
-                    "Failed to create account. Please try again.",
-            });
+            ErrorHandler.handle(error, "signup");
         },
     });
 };
@@ -172,7 +153,6 @@ export const useSignup = () => {
 export const useLogout = () => {
     const queryClient = useQueryClient();
     const { logout } = useUserStore();
-    const { addNotification } = useUIStore();
 
     return useMutation({
         mutationFn: async () => {
@@ -189,18 +169,13 @@ export const useLogout = () => {
             // Clear all queries
             queryClient.clear();
 
-            addNotification({
-                type: "success",
-                title: "Logged Out",
-                message: "You have been successfully logged out.",
-            });
+            ErrorHandler.showSuccess(
+                "Logged Out",
+                "You have been successfully logged out."
+            );
         },
         onError: (error: any) => {
-            addNotification({
-                type: "error",
-                title: "Logout Failed",
-                message: error.message || "Failed to logout. Please try again.",
-            });
+            ErrorHandler.handle(error, "logout");
         },
     });
 };

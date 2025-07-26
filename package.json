@@ -30,6 +30,7 @@
     "react-dom": "19.1.0",
     "react-hook-form": "^7.61.1",
     "react-tweet": "^3.2.2",
+    "sonner": "^2.0.6",
     "tailwind-merge": "^3.3.1",
     "zod": "^4.0.10",
     "zustand": "^5.0.6"
