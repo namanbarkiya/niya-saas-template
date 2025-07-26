@@ -1,5 +1,12 @@
 import { CalendarIcon, FileTextIcon } from "@radix-ui/react-icons";
-import { BellIcon, Share2Icon } from "lucide-react";
+import {
+    BellIcon,
+    Share2Icon,
+    CodeIcon,
+    ShieldIcon,
+    ZapIcon,
+    PaletteIcon,
+} from "lucide-react";
 
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
@@ -8,43 +15,48 @@ import AnimatedListDemo from "../animated-list-demo";
 import { BentoCard, BentoGrid } from "@/components/landing/magicui/bento-grid";
 import { Marquee } from "@/components/landing/magicui/marquee";
 
-const files = [
+const techStack = [
     {
-        name: "bitcoin.pdf",
-        body: "Bitcoin is a cryptocurrency invented in 2008 by an unknown person or group of people using the name Satoshi Nakamoto.",
+        name: "Next.js 15",
+        body: "Latest App Router with TypeScript support and optimized performance.",
     },
     {
-        name: "finances.xlsx",
-        body: "A spreadsheet or worksheet is a file made of rows and columns that help sort data, arrange data easily, and calculate numerical data.",
+        name: "Supabase",
+        body: "Real-time database with authentication, storage, and edge functions.",
     },
     {
-        name: "logo.svg",
-        body: "Scalable Vector Graphics is an Extensible Markup Language-based vector image format for two-dimensional graphics with support for interactivity and animation.",
+        name: "Tailwind CSS",
+        body: "Utility-first CSS framework for rapid UI development and customization.",
     },
     {
-        name: "keys.gpg",
-        body: "GPG keys are used to encrypt and decrypt email, files, directories, and whole disk partitions and to authenticate messages.",
+        name: "Zustand",
+        body: "Lightweight state management with TypeScript support and minimal boilerplate.",
     },
     {
-        name: "seed.txt",
-        body: "A seed phrase, seed recovery phrase or backup seed phrase is a list of words which store all the information needed to recover Bitcoin funds on-chain.",
+        name: "React Query",
+        body: "Powerful data fetching and caching library for server state management.",
+    },
+    {
+        name: "Zod",
+        body: "TypeScript-first schema validation for runtime type safety and error handling.",
     },
 ];
 
 const features = [
     {
-        Icon: FileTextIcon,
-        name: "Save your files",
-        description: "We automatically save your files as you type.",
+        Icon: CodeIcon,
+        name: "Modern Tech Stack",
+        description:
+            "Built with Next.js 15, TypeScript, and cutting-edge tools for production-ready applications.",
         href: "#",
-        cta: "Learn more",
+        cta: "View Tech Stack",
         className: "col-span-3 lg:col-span-1",
         background: (
             <Marquee
                 pauseOnHover
                 className="absolute top-10 [--duration:20s] [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)] "
             >
-                {files.map((f, idx) => (
+                {techStack.map((tech, idx) => (
                     <figure
                         key={idx}
                         className={cn(
@@ -57,12 +69,12 @@ const features = [
                         <div className="flex flex-row items-center gap-2">
                             <div className="flex flex-col">
                                 <figcaption className="text-sm font-medium dark:text-white ">
-                                    {f.name}
+                                    {tech.name}
                                 </figcaption>
                             </div>
                         </div>
                         <blockquote className="mt-2 text-xs">
-                            {f.body}
+                            {tech.body}
                         </blockquote>
                     </figure>
                 ))}
@@ -70,9 +82,10 @@ const features = [
         ),
     },
     {
-        Icon: BellIcon,
-        name: "Notifications",
-        description: "Get notified when something happens.",
+        Icon: ShieldIcon,
+        name: "Authentication & Security",
+        description:
+            "Complete auth system with Supabase, protected routes, and role-based access control.",
         href: "#",
         cta: "Learn more",
         className: "col-span-3 lg:col-span-2",
@@ -81,9 +94,10 @@ const features = [
         ),
     },
     {
-        Icon: Share2Icon,
-        name: "Integrations",
-        description: "Supports 100+ integrations and counting.",
+        Icon: ZapIcon,
+        name: "State Management",
+        description:
+            "Optimized state management with Zustand and React Query for scalable applications.",
         href: "#",
         cta: "Learn more",
         className: "col-span-3 lg:col-span-2",
@@ -92,12 +106,13 @@ const features = [
         ),
     },
     {
-        Icon: CalendarIcon,
-        name: "Calendar",
-        description: "Use the calendar to filter your files by date.",
+        Icon: PaletteIcon,
+        name: "Beautiful UI Components",
+        description:
+            "Modern UI components with Magic UI, Radix primitives, and Tailwind CSS styling.",
         className: "col-span-3 lg:col-span-1",
         href: "#",
-        cta: "Learn more",
+        cta: "View Components",
         background: (
             <Calendar
                 mode="single"
@@ -110,10 +125,12 @@ const features = [
 
 export default function Features() {
     return (
-        <BentoGrid>
-            {features.map((feature, idx) => (
-                <BentoCard key={idx} {...feature} />
-            ))}
-        </BentoGrid>
+        <section id="features" className="py-16">
+            <BentoGrid>
+                {features.map((feature, idx) => (
+                    <BentoCard key={idx} {...feature} />
+                ))}
+            </BentoGrid>
+        </section>
     );
 }

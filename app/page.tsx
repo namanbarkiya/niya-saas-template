@@ -9,14 +9,16 @@ import Footer from "@/components/landing/sections/footer";
 
 export default function LandingPage() {
     return (
-        <div className="flex flex-col items-center justify-center max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8">
+        <div>
             <Navbar />
-            <ScrollProgress />
-            <Hero />
-            <SectionHeader title="Features for you" className="mt-0!" />
-            <Features />
-            <SectionHeader title="What people are saying" />
-            <TweetGallery />
+            <div className="flex flex-col items-center justify-center max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8">
+                <ScrollProgress />
+                <Hero />
+                <SectionHeader title="Features for you" className="mt-0!" />
+                <Features />
+                <SectionHeader title="What people are saying" />
+                <TweetGallery />
+            </div>
             <Footer />
         </div>
     );

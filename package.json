@@ -1,50 +1,83 @@
 {
-  "name": "modern-next-landing",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@hookform/resolvers": "^5.2.0",
-    "@radix-ui/react-icons": "^1.3.2",
-    "@radix-ui/react-label": "^2.1.7",
-    "@radix-ui/react-slot": "^1.2.3",
-    "@supabase/ssr": "^0.6.1",
-    "@supabase/supabase-js": "^2.52.1",
-    "@tanstack/react-query": "^5.83.0",
-    "@tanstack/react-query-devtools": "^5.83.0",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "date-fns": "^4.1.0",
-    "framer-motion": "^12.23.6",
-    "jotai": "^2.12.5",
-    "lucide-react": "^0.525.0",
-    "motion": "^12.23.6",
-    "next": "15.4.2",
-    "react": "19.1.0",
-    "react-day-picker": "^9.8.0",
-    "react-dom": "19.1.0",
-    "react-hook-form": "^7.61.1",
-    "react-tweet": "^3.2.2",
-    "sonner": "^2.0.6",
-    "tailwind-merge": "^3.3.1",
-    "zod": "^4.0.10",
-    "zustand": "^5.0.6"
-  },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.4.2",
-    "tailwindcss": "^4",
-    "tw-animate-css": "^1.3.5",
-    "typescript": "^5"
-  }
+    "name": "niya-nextjs-template",
+    "version": "1.0.0",
+    "description": "Production-ready Next.js 15 template for developers and AI startups with authentication, state management, and beautiful UI components",
+    "keywords": [
+        "nextjs",
+        "react",
+        "typescript",
+        "supabase",
+        "template",
+        "authentication",
+        "state-management",
+        "tailwind-css",
+        "developer-tools",
+        "ai-startup",
+        "modern-web-app",
+        "production-ready"
+    ],
+    "author": {
+        "name": "Naman Barkiya",
+        "email": "naman@nbarkiya.xyz",
+        "url": "https://github.com/namanbarkiya"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/namanbarkiya/niya-saas-template.git"
+    },
+    "homepage": "https://saas.nbarkiya.xyz",
+    "bugs": {
+        "url": "https://github.com/namanbarkiya/niya-saas-template/issues"
+    },
+    "private": true,
+    "scripts": {
+        "dev": "next dev --turbopack",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@hookform/resolvers": "^5.2.0",
+        "@radix-ui/react-icons": "^1.3.2",
+        "@radix-ui/react-label": "^2.1.7",
+        "@radix-ui/react-slot": "^1.2.3",
+        "@supabase/ssr": "^0.6.1",
+        "@supabase/supabase-js": "^2.52.1",
+        "@tanstack/react-query": "^5.83.0",
+        "@tanstack/react-query-devtools": "^5.83.0",
+        "class-variance-authority": "^0.7.1",
+        "clsx": "^2.1.1",
+        "date-fns": "^4.1.0",
+        "framer-motion": "^12.23.6",
+        "jotai": "^2.12.5",
+        "lucide-react": "^0.525.0",
+        "motion": "^12.23.6",
+        "next": "15.4.2",
+        "react": "19.1.0",
+        "react-day-picker": "^9.8.0",
+        "react-dom": "19.1.0",
+        "react-hook-form": "^7.61.1",
+        "react-tweet": "^3.2.2",
+        "sonner": "^2.0.6",
+        "tailwind-merge": "^3.3.1",
+        "zod": "^4.0.10",
+        "zustand": "^5.0.6"
+    },
+    "devDependencies": {
+        "@eslint/eslintrc": "^3",
+        "@tailwindcss/postcss": "^4",
+        "@types/node": "^20",
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        "eslint": "^9",
+        "eslint-config-next": "15.4.2",
+        "tailwindcss": "^4",
+        "tw-animate-css": "^1.3.5",
+        "typescript": "^5"
+    },
+    "engines": {
+        "node": ">=18.0.0",
+        "npm": ">=8.0.0"
+    }
 }
