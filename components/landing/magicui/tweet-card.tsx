@@ -1,10 +1,5 @@
 import { Suspense } from "react";
-import {
-    enrichTweet,
-    type EnrichedTweet,
-    type TweetProps,
-    type TwitterComponents,
-} from "react-tweet";
+import { enrichTweet, type EnrichedTweet, type TweetProps } from "react-tweet";
 import { getTweet, type Tweet } from "react-tweet/api";
 
 import { cn } from "@/lib/utils";
@@ -232,12 +227,10 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
 
 export const MagicTweet = ({
     tweet,
-    components,
     className,
     ...props
 }: {
     tweet: Tweet;
-    components?: TwitterComponents;
     className?: string;
 }) => {
     const enrichedTweet = enrichTweet(tweet);
