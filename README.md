@@ -1,8 +1,97 @@
-This is a modern landing page built with [Next.js](https://nextjs.org) and Magic UI components.
+# 🚀 Niya - Modern Next.js Template for Developers & AI Startups
 
-## Getting Started
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![Supabase](https://img.shields.io/badge/Supabase-Latest-green?style=for-the-badge&logo=supabase)](https://supabase.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
-First, run the development server:
+> **Niya** is a production-ready Next.js 15 template designed for developers and AI startups. Built with modern best practices, it includes authentication, state management, beautiful UI components, and everything you need to build scalable applications.
+
+## ✨ Features
+
+### 🛠️ **Modern Tech Stack**
+
+-   **Next.js 15** with App Router and TypeScript
+-   **Supabase** for authentication, database, and real-time features
+-   **Tailwind CSS 4** for rapid UI development
+-   **Zustand** for lightweight state management
+-   **React Query** for server state management
+-   **Zod** for runtime type validation
+
+### 🔐 **Authentication & Security**
+
+-   Complete authentication system with Supabase Auth
+-   Protected routes and middleware
+-   Role-based access control
+-   Email confirmation flow
+-   Password reset functionality
+
+### 🎨 **Beautiful UI Components**
+
+-   **Magic UI** components for stunning animations
+-   **Radix UI** primitives for accessibility
+-   **Framer Motion** for smooth animations
+-   Dark mode support
+-   Responsive design
+
+### 📱 **Developer Experience**
+
+-   Zero-config setup
+-   Hot reload with Turbopack
+-   ESLint and Prettier configuration
+-   TypeScript strict mode
+-   Comprehensive error handling
+
+### 🚀 **Production Ready**
+
+-   Optimized for performance
+-   SEO-friendly with metadata
+-   Image optimization
+-   Error boundaries
+-   Loading states
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+-   Node.js 18+
+-   npm, yarn, pnpm, or bun
+
+### Installation
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/namanbarkiya/niya-saas-template.git
+cd modern-next-landing
+```
+
+2. **Install dependencies**
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+3. **Set up environment variables**
+
+```bash
+cp env-example.env .env.local
+```
+
+4. **Configure Supabase**
+
+-   Create a new project at [supabase.com](https://supabase.com)
+-   Copy your project URL and anon key
+-   Update `.env.local` with your credentials
+
+5. **Run the development server**
 
 ```bash
 npm run dev
@@ -14,23 +103,134 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+6. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000) to see your application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+modern-next-landing/
+├── app/                    # Next.js 15 App Router
+│   ├── api/               # API routes
+│   ├── dashboard/         # Protected dashboard pages
+│   ├── login/            # Authentication pages
+│   └── signup/           # Registration pages
+├── components/            # Reusable components
+│   ├── auth/             # Authentication components
+│   ├── dashboard/        # Dashboard components
+│   ├── forms/            # Form components
+│   ├── landing/          # Landing page components
+│   ├── providers/        # Context providers
+│   └── ui/               # Base UI components
+├── lib/                  # Utility libraries
+│   ├── hooks/            # Custom React hooks
+│   ├── query/            # React Query configuration
+│   ├── store/            # State management
+│   ├── supabase/         # Supabase client
+│   ├── utils/            # Utility functions
+│   └── validations/      # Zod schemas
+└── public/               # Static assets
+```
 
-## Learn More
+## 🎯 Use Cases
 
-To learn more about Next.js, take a look at the following resources:
+### For Developers
 
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+-   **Rapid Prototyping**: Get started quickly with a production-ready foundation
+-   **Learning**: Study modern React and Next.js patterns
+-   **Portfolio Projects**: Showcase your skills with a professional template
+-   **Side Projects**: Build MVPs and side projects efficiently
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### For AI Startups
 
-## Deploy on Vercel
+-   **AI Application Frontend**: Perfect foundation for AI-powered applications
+-   **Dashboard Applications**: Built-in dashboard with authentication
+-   **Real-time Features**: Supabase integration for real-time data
+-   **Scalable Architecture**: Designed to grow with your business
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new) from the creators of Next.js.
+### For Teams
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+-   **Consistent Codebase**: Standardized patterns and practices
+-   **Type Safety**: Full TypeScript support for better development experience
+-   **Testing Ready**: Structured for easy testing implementation
+-   **Deployment Ready**: Optimized for Vercel and other platforms
+
+## 🛠️ Customization
+
+### Styling
+
+The template uses Tailwind CSS for styling. You can customize the design system in `tailwind.config.js`:
+
+```javascript
+module.exports = {
+    theme: {
+        extend: {
+            colors: {
+                // Your custom colors
+            },
+            fontFamily: {
+                // Your custom fonts
+            },
+        },
+    },
+};
+```
+
+### Components
+
+All components are modular and customizable. Check the `components/` directory for examples.
+
+### Authentication
+
+The authentication system is built with Supabase Auth. You can customize the auth flow in `lib/supabase/`.
+
+## 📚 Documentation
+
+### Technical Details
+
+For detailed technical information, see [Technical Description](./project-details/technical-description.md).
+
+### Architecture
+
+-   **State Management**: Zustand for client state, React Query for server state
+-   **Form Handling**: React Hook Form with Zod validation
+-   **Error Handling**: Comprehensive error boundaries and toast notifications
+-   **Performance**: Optimized with Next.js 15 features
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+
+### Development
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+-   [Next.js](https://nextjs.org/) - The React framework
+-   [Supabase](https://supabase.com/) - The open source Firebase alternative
+-   [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework
+-   [Magic UI](https://magicui.design/) - Beautiful UI components
+-   [Radix UI](https://www.radix-ui.com/) - Unstyled, accessible UI primitives
+
+## 📞 Support
+
+-   **GitHub Issues**: [Report bugs or request features](https://github.com/namanbarkiya/niya-saas-template/issues)
+-   **Discussions**: [Join the community](https://github.com/namanbarkiya/niya-saas-template/discussions)
+-   **Author**: [Naman Barkiya](https://github.com/namanbarkiya)
+
+## 🌟 Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=namanbarkiya/modern-next-landing&type=Date)](https://star-history.com/#namanbarkiya/modern-next-landing&Date)
+
+---
+
+**Built with ❤️ by [Naman Barkiya](https://github.com/namanbarkiya)**
