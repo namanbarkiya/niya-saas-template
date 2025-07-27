@@ -1,5 +1,5 @@
-import { atom } from "jotai";
 import { atomWithStorage } from "jotai/utils";
+import { atom } from "jotai";
 import { User } from "../user-store";
 
 // User authentication atoms
@@ -10,14 +10,14 @@ export const isAuthenticatedAtom = atom<boolean>(false);
 
 // User preferences atoms
 export const themeAtom = atomWithStorage<"light" | "dark" | "system">(
-    "theme",
-    "system"
+  "theme",
+  "system"
 );
 export const systemThemeAtom = atom<"light" | "dark">("light");
 export const languageAtom = atomWithStorage<string>("language", "en");
 export const notificationsAtom = atomWithStorage<boolean>(
-    "notifications",
-    true
+  "notifications",
+  true
 );
 
 // Form state atoms
@@ -31,21 +31,21 @@ export const currentRouteAtom = atom<string>("/");
 
 // Derived atoms
 export const effectiveThemeAtom = atom((get) => {
-    const theme = get(themeAtom);
-    if (theme === "system") {
-        return get(systemThemeAtom);
-    }
-    return theme;
+  const theme = get(themeAtom);
+  if (theme === "system") {
+    return get(systemThemeAtom);
+  }
+  return theme;
 });
 
 export const userProfileAtom = atom((get) => {
-    const user = get(userAtom);
-    return user
-        ? {
-              id: user.id,
-              email: user.email,
-              name: user.name,
-              avatar_url: user.avatar_url,
-          }
-        : null;
+  const user = get(userAtom);
+  return user
+    ? {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        avatar_url: user.avatar_url,
+      }
+    : null;
 });

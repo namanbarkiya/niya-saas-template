@@ -1,13 +1,13 @@
 import { AuthGuard } from "@/components/auth";
 
 export default function DashboardLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    return (
-        <AuthGuard requireAuth={true} redirectTo="/login">
-            <div>{children}</div>
-        </AuthGuard>
-    );
+  return (
+    <AuthGuard requireAuth={true} redirectTo="/login">
+      <div>{children}</div>
+    </AuthGuard>
+  );
 }

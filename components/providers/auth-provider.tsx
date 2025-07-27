@@ -1,78 +1,76 @@
 "use client";
 
 import React, { createContext, useContext, useEffect } from "react";
-import { useUserStore, User } from "@/lib/store/user-store";
-import { useCurrentUser, useCurrentSession } from "@/lib/query/hooks/auth";
 import { User as SupabaseUser } from "@supabase/supabase-js";
+import { useCurrentSession, useCurrentUser } from "@/lib/query/hooks/auth";
+import { User, useUserStore } from "@/lib/store/user-store";
 
 interface AuthContextType {
-    isAuthenticated: boolean;
-    isLoading: boolean;
-    user: User | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  user: User | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
-    const context = useContext(AuthContext);
-    if (context === undefined) {
-        throw new Error("useAuth must be used within an AuthProvider");
-    }
-    return context;
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
 };
 
 interface AuthProviderProps {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-    const {
-        setUser,
-        setSession,
-        setLoading,
-        isAuthenticated,
-        user: storeUser,
-    } = useUserStore();
+  const {
+    setUser,
+    setSession,
+    setLoading,
+    isAuthenticated,
+    user: storeUser,
+  } = useUserStore();
 
-    const { data: supabaseUser, isLoading: userLoading } = useCurrentUser();
-    const { data: session, isLoading: sessionLoading } = useCurrentSession();
+  const { data: supabaseUser, isLoading: userLoading } = useCurrentUser();
+  const { data: session, isLoading: sessionLoading } = useCurrentSession();
 
-    const isLoading = userLoading || sessionLoading;
+  const isLoading = userLoading || sessionLoading;
 
-    useEffect(() => {
-        if (supabaseUser && supabaseUser.email) {
-            const user = supabaseUser as SupabaseUser;
-            setUser({
-                id: user.id,
-                email: user.email as string,
-                name: user.user_metadata?.name,
-                avatar_url: user.user_metadata?.avatar_url,
-                created_at: user.created_at,
-                updated_at: user.updated_at || user.created_at,
-            });
-        } else if (supabaseUser) {
-            // If user exists but no email, clear the user
-            setUser(null);
-        }
-    }, [supabaseUser, setUser]);
+  useEffect(() => {
+    if (supabaseUser && supabaseUser.email) {
+      const user = supabaseUser as SupabaseUser;
+      setUser({
+        id: user.id,
+        email: user.email as string,
+        name: user.user_metadata?.name,
+        avatar_url: user.user_metadata?.avatar_url,
+        created_at: user.created_at,
+        updated_at: user.updated_at || user.created_at,
+      });
+    } else if (supabaseUser) {
+      // If user exists but no email, clear the user
+      setUser(null);
+    }
+  }, [supabaseUser, setUser]);
 
-    useEffect(() => {
-        if (session) {
-            setSession(session);
-        }
-    }, [session, setSession]);
+  useEffect(() => {
+    if (session) {
+      setSession(session);
+    }
+  }, [session, setSession]);
 
-    useEffect(() => {
-        setLoading(isLoading);
-    }, [isLoading, setLoading]);
+  useEffect(() => {
+    setLoading(isLoading);
+  }, [isLoading, setLoading]);
 
-    const value: AuthContextType = {
-        isAuthenticated,
-        isLoading,
-        user: storeUser,
-    };
+  const value: AuthContextType = {
+    isAuthenticated,
+    isLoading,
+    user: storeUser,
+  };
 
-    return (
-        <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-    );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
