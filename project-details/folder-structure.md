@@ -1,94 +1,138 @@
 # 📁 FOLDER STRUCTURE GUIDE
 
-## **RECOMMENDED PROJECT STRUCTURE**
+## **CURRENT PROJECT STRUCTURE**
 
 ```
 modern-next-landing/
-├── app/                          # Next.js 15 App Router
-│   ├── api/                      # API Routes
-│   ├── dashboard/                # Dashboard pages
-│   ├── login/                    # Login page
-│   ├── signup/                   # Signup page
-│   ├── error/                    # Error pages
-│   ├── globals.css               # Global styles
-│   ├── layout.tsx                # Root layout
-│   ├── middleware.ts             # Next.js middleware
-│   ├── page.tsx                  # Landing page
-│   ├── robots.ts                 # SEO
-│   └── sitemap.ts               # SEO
-├── components/                    # React Components
-│   ├── ui/                       # Base UI Components
-│   │   ├── button.tsx
-│   │   ├── input.tsx
-│   │   ├── label.tsx
-│   │   ├── card.tsx
-│   │   ├── calendar.tsx
-│   │   ├── magicui/              # Third-party UI components
-│   │   └── index.ts
-│   ├── forms/                    # Form Components
-│   │   ├── auth-form.tsx
-│   │   ├── form-field.tsx
-│   │   ├── form-submit.tsx
-│   │   ├── login-form.tsx
-│   │   └── index.ts
-│   ├── landing/                  # Landing page components
-│   │   ├── sections/             # Landing sections
-│   │   │   ├── hero.tsx
-│   │   │   ├── navbar.tsx
-│   │   │   ├── features.tsx
-│   │   │   ├── footer.tsx
-│   │   │   ├── tweet-gallery.tsx
-│   │   │   ├── animated-beam-demo.tsx
-│   │   │   ├── animated-list-demo.tsx
-│   │   │   └── index.ts
-│   │   └── section-header.tsx
-│   ├── auth/                     # Authentication components
-│   │   ├── auth-guard.tsx
-│   │   └── index.ts
-│   ├── error/                    # Error components
-│   │   ├── error-boundary.tsx
-│   │   └── index.ts
-│   ├── providers/                # Context Providers
-│   │   ├── auth-provider.tsx
-│   │   ├── query-provider.tsx
-│   │   ├── sonner-provider.tsx
-│   │   └── index.ts
-│   └── seo/                      # SEO components
-│       └── page-seo.tsx
-├── lib/                          # Library and Utilities
-│   ├── utils/                    # Utility Functions
-│   │   ├── cn.ts                 # Class name utility
-│   │   ├── error-handler.ts      # Error handling
-│   │   └── index.ts
-│   ├── hooks/                    # Custom React Hooks
-│   │   ├── use-error-handler.ts
-│   │   ├── use-dark-mode.ts
-│   │   └── index.ts
-│   ├── store/                    # State Management
-│   │   ├── user-store.ts
-│   │   ├── ui-store.ts
-│   │   ├── app-store.ts
-│   │   ├── atoms/
-│   │   └── index.ts
-│   ├── validations/              # Zod Schemas
-│   │   ├── auth.ts
-│   │   └── index.ts
-│   ├── supabase/                 # Supabase Configuration
-│   │   ├── client.ts
-│   │   ├── server.ts
-│   │   ├── middleware.ts
-│   │   └── index.ts
-│   ├── query/                    # React Query Setup
-│   │   ├── client.ts
-│   │   ├── error-handler.ts
-│   │   ├── hooks/
-│   │   └── index.ts
-│   └── index.ts                  # Main library exports
-├── public/                       # Static Assets
-├── next.config.ts                # Next.js Configuration
-├── tsconfig.json                 # TypeScript Configuration
-├── package.json                  # Dependencies
-└── README.md                     # Project Documentation
+├── .env                              # Environment variables
+├── .gitignore                        # Git ignore rules
+├── app/                              # Next.js 15 App Router
+│   ├── api/                          # API Routes
+│   │   └── auth/
+│   │       └── confirm/
+│   │           └── route.ts          # Email confirmation endpoint
+│   ├── dashboard/                    # Dashboard pages
+│   │   ├── layout.tsx               # Dashboard layout with auth guard
+│   │   └── page.tsx                 # Dashboard main page
+│   ├── error/                        # Error pages
+│   │   └── page.tsx                 # Error boundary page
+│   ├── favicon.ico                   # Site favicon
+│   ├── globals.css                   # Global styles
+│   ├── layout.tsx                    # Root layout
+│   ├── login/                        # Login pages
+│   │   ├── actions.ts               # Server actions for login
+│   │   └── page.tsx                 # Login page
+│   ├── middleware.ts                 # Next.js middleware for auth
+│   ├── page.tsx                      # Landing page
+│   ├── robots.ts                     # SEO robots.txt
+│   ├── signup/                       # Signup pages
+│   │   └── page.tsx                 # Signup page
+│   └── sitemap.ts                    # SEO sitemap
+├── components/                        # React Components
+│   ├── auth/                         # Authentication components
+│   │   ├── auth-guard.tsx           # Route protection component
+│   │   └── index.ts                 # Auth component exports
+│   ├── dashboard/                    # Dashboard components (empty)
+│   ├── error/                        # Error components
+│   │   ├── error-boundary.tsx       # Error boundary component
+│   │   └── index.ts                 # Error component exports
+│   ├── forms/                        # Form Components
+│   │   ├── auth-form.tsx            # Generic auth form
+│   │   ├── form-field.tsx           # Form field component
+│   │   ├── form-submit.tsx          # Form submit button
+│   │   ├── index.ts                 # Form component exports
+│   │   └── login-form.tsx           # Login form component
+│   ├── landing/                      # Landing page components
+│   │   ├── section-header.tsx       # Section header component
+│   │   └── sections/                # Landing sections
+│   │       ├── animated-beam-demo.tsx
+│   │       ├── animated-list-demo.tsx
+│   │       ├── features.tsx         # Features section
+│   │       ├── footer.tsx           # Footer section
+│   │       ├── hero.tsx             # Hero section
+│   │       ├── index.ts             # Section exports
+│   │       ├── navbar.tsx           # Navigation bar
+│   │       └── tweet-gallery.tsx    # Tweet gallery section
+│   ├── providers/                    # Context Providers
+│   │   ├── auth-provider.tsx        # Authentication provider
+│   │   ├── index.ts                 # Provider exports
+│   │   ├── query-provider.tsx       # React Query provider
+│   │   └── sonner-provider.tsx      # Toast notification provider
+│   ├── seo/                          # SEO components
+│   │   └── page-seo.tsx             # Page SEO component
+│   └── ui/                           # Base UI Components
+│       ├── button.tsx               # Button component
+│       ├── calendar.tsx             # Calendar component
+│       ├── card.tsx                 # Card component
+│       ├── index.ts                 # UI component exports
+│       ├── input.tsx                # Input component
+│       ├── label.tsx                # Label component
+│       └── magicui/                 # Third-party UI components
+│           ├── animated-beam.tsx
+│           ├── animated-list.tsx
+│           ├── animated-shiny-text.tsx
+│           ├── aurora-text.tsx
+│           ├── bento-grid.tsx
+│           ├── dock.tsx
+│           ├── interactive-hover-button.tsx
+│           ├── marquee.tsx
+│           ├── scroll-progress.tsx
+│           ├── tweet-card.tsx
+│           └── word-rotate.tsx
+├── components.json                   # Shadcn/ui configuration
+├── env-example.env                   # Environment variables template
+├── eslint.config.mjs                 # ESLint configuration
+├── lib/                              # Library and Utilities
+│   ├── hooks/                        # Custom React Hooks
+│   │   ├── index.ts                 # Hook exports
+│   │   ├── use-dark-mode.ts         # Dark mode hook
+│   │   └── use-error-handler.ts     # Error handling hook
+│   ├── index.ts                      # Main library exports
+│   ├── query/                        # React Query Setup
+│   │   ├── client.ts                # Query client configuration
+│   │   ├── error-handler.ts         # Query error handling
+│   │   ├── hooks/                   # Query hooks
+│   │   │   ├── auth.ts              # Authentication hooks
+│   │   │   └── index.ts             # Query hook exports
+│   │   └── index.ts                 # Query exports
+│   ├── store/                        # State Management
+│   │   ├── app-store.ts             # App-wide state store
+│   │   ├── atoms/                   # Jotai atoms
+│   │   │   ├── index.ts             # Atom exports
+│   │   │   └── user-atoms.ts        # User-related atoms
+│   │   ├── index.ts                 # Store exports
+│   │   ├── ui-store.ts              # UI state store
+│   │   └── user-store.ts            # User state store
+│   ├── supabase/                     # Supabase Configuration
+│   │   ├── client.ts                # Supabase client
+│   │   ├── index.ts                 # Supabase exports
+│   │   ├── middleware.ts             # Supabase middleware
+│   │   └── server.ts                # Supabase server client
+│   ├── utils/                        # Utility Functions
+│   │   ├── cn.ts                    # Class name utility
+│   │   ├── error-handler.ts         # Error handling utilities
+│   │   └── index.ts                 # Utility exports
+│   └── validations/                  # Zod Schemas
+│       ├── auth.ts                   # Authentication schemas
+│       └── index.ts                  # Validation exports
+├── next-env.d.ts                     # Next.js type definitions
+├── next.config.ts                    # Next.js Configuration
+├── package-lock.json                 # NPM lock file
+├── package.json                      # Dependencies and scripts
+├── postcss.config.mjs                # PostCSS configuration
+├── project-details/                  # Project documentation
+│   ├── folder-structure.md           # This file
+│   ├── technical-description.md      # Technical documentation
+│   └── todo-list.md                  # Development todo list
+├── public/                           # Static Assets
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── manifest.json                 # PWA manifest
+│   ├── next.svg
+│   ├── vercel.svg
+│   └── window.svg
+├── README.md                         # Project Documentation
+└── tsconfig.json                     # TypeScript Configuration
 ```
 
 ## **FOLDER ORGANIZATION PRINCIPLES**
