@@ -1,7 +1,9 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { useAuth } from "@/components/providers/auth-provider";
 import { AnimatedShinyText } from "@/components/ui/magicui/animated-shiny-text";
 import { AuroraText } from "@/components/ui/magicui/aurora-text";
 import { InteractiveHoverButton } from "@/components/ui/magicui/interactive-hover-button";
@@ -9,6 +11,17 @@ import { WordRotate } from "@/components/ui/magicui/word-rotate";
 import { cn } from "@/lib/utils";
 
 export default function Hero() {
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  const handleAuthButtonClick = () => {
+    if (isAuthenticated) {
+      router.push("/dashboard");
+    } else {
+      router.push("/login");
+    }
+  };
+
   return (
     <section className="relative flex min-h-screen md:min-h-[80vh] flex-col items-center justify-center px-2 py-8 md:px-4 md:py-24 overflow-hidden">
       <div className="flex flex-col items-center gap-6 w-full max-w-2xl mx-auto">
@@ -41,13 +54,16 @@ export default function Hero() {
               "Scalable architecture for AI startups.",
               "Zero-config setup for rapid development.",
             ]}
-            className="text-lg md:text-xl lg:text-2xl text-neutral-600 dark:text-neutral-300 font-medium min-h-[2.5rem]"
+            className="text-base text-center md:text-xl lg:text-2xl text-neutral-600 dark:text-neutral-300 font-medium min-h-[2.5rem]"
             duration={2200}
           />
         </div>
         <div className="mt-6 flex flex-col sm:flex-row gap-4">
-          <InteractiveHoverButton className="text-base px-8 py-3">
-            Get Template
+          <InteractiveHoverButton
+            className="text-base px-8 py-3"
+            onClick={handleAuthButtonClick}
+          >
+            {isAuthenticated ? "Go to Dashboard" : "Get Started"}
           </InteractiveHoverButton>
           <InteractiveHoverButton
             className="text-base px-8 py-3 bg-transparent border border-neutral-300 dark:border-neutral-700"

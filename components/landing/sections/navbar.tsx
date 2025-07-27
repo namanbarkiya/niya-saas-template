@@ -1,15 +1,19 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import {
   BookOpen,
   Code,
   ExternalLink,
   Github,
   Home,
+  LogIn,
   Moon,
   Sparkles,
+  User,
 } from "lucide-react";
+import { useAuth } from "@/components/providers/auth-provider";
 import { Dock, DockIcon } from "@/components/ui/magicui/dock";
 import { useDarkMode } from "@/lib/hooks/use-dark-mode";
 import { cn } from "@/lib/utils";
@@ -18,6 +22,8 @@ export type IconProps = React.HTMLAttributes<SVGElement>;
 
 export default function Navbar() {
   const [isDark, toggleDark] = useDarkMode();
+  const { user, isAuthenticated } = useAuth();
+  const router = useRouter();
 
   const handleGitHubClick = () => {
     window.open("https://github.com/namanbarkiya/niya-saas-template", "_blank");
@@ -34,12 +40,23 @@ export default function Navbar() {
     );
   };
 
+  const handleProfileClick = () => {
+    if (isAuthenticated) {
+      router.push("/dashboard");
+    } else {
+      router.push("/login");
+    }
+  };
+
   return (
     <div className="fixed top-0 left-0 w-full z-50">
       <div className="flex items-center justify-between w-full px-6 pt-2">
         {/* Navigation Dock */}
         <Dock iconMagnification={60} iconDistance={100}>
-          <DockIcon title="Home">
+          <DockIcon
+            title="Back to Top"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
             <Home className="size-full text-neutral-600 dark:text-neutral-300/70" />
           </DockIcon>
           <DockIcon
@@ -60,6 +77,16 @@ export default function Navbar() {
           </DockIcon>
           <DockIcon title="View on GitHub" onClick={handleGitHubClick}>
             <Github className="size-full text-neutral-600 dark:text-neutral-300/70" />
+          </DockIcon>
+          <DockIcon
+            title={isAuthenticated ? "Dashboard" : "Login"}
+            onClick={handleProfileClick}
+          >
+            {isAuthenticated ? (
+              <User className="size-full text-neutral-600 dark:text-neutral-300/70" />
+            ) : (
+              <LogIn className="size-full text-neutral-600 dark:text-neutral-300/70" />
+            )}
           </DockIcon>
           <DockIcon title="Toggle Theme">
             <Moon

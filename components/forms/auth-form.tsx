@@ -7,7 +7,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormField, FormSubmit } from "@/components/forms";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useNotifications } from "@/lib/hooks/use-notifications";
 import { useLogin, useSignup } from "@/lib/query/hooks/auth";
 import { loginSchema, signupSchema } from "@/lib/validations/auth";
 
@@ -34,7 +33,6 @@ export const AuthForm: React.FC<AuthFormProps> = ({
 }) => {
   const isLogin = mode === "login";
   const [isLoading, setIsLoading] = useState(false);
-  const { success } = useNotifications();
 
   const loginMutation = useLogin();
   const signupMutation = useSignup();
@@ -52,13 +50,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({
     try {
       if (isLogin) {
         await loginMutation.mutateAsync(data as LoginFormData);
-        success("Login Successful", "Welcome back!");
       } else {
         await signupMutation.mutateAsync(data as SignupFormData);
-        success(
-          "Account Created",
-          "Please check your email to confirm your account."
-        );
       }
       onSuccess?.();
     } catch (error) {
