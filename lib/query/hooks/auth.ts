@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNotifications } from "@/lib/hooks/use-notifications";
 import { useUserStore } from "@/lib/store/user-store";
 import { createClient } from "@/lib/supabase/client";
 import { ErrorHandler } from "@/lib/utils/error-handler";
@@ -50,6 +51,7 @@ export const useCurrentSession = () => {
 export const useLogin = () => {
   const queryClient = useQueryClient();
   const { setUser, setSession, setLoading } = useUserStore();
+  const { success } = useNotifications();
 
   return useMutation({
     mutationFn: async ({
@@ -92,7 +94,7 @@ export const useLogin = () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.auth.user });
       queryClient.invalidateQueries({ queryKey: queryKeys.auth.session });
 
-      ErrorHandler.showSuccess("Login Successful", "Welcome back!");
+      success("Login Successful", "Welcome back!");
     },
     onError: (error: unknown) => {
       setLoading(false);
@@ -104,6 +106,7 @@ export const useLogin = () => {
 // Hook for signup mutation
 export const useSignup = () => {
   const { setLoading } = useUserStore();
+  const { success } = useNotifications();
 
   return useMutation({
     mutationFn: async ({
@@ -139,12 +142,12 @@ export const useSignup = () => {
       setLoading(false);
 
       if (data.user && !data.session) {
-        ErrorHandler.showSuccess(
+        success(
           "Account Created",
           "Please check your email to confirm your account."
         );
       } else {
-        ErrorHandler.showSuccess(
+        success(
           "Account Created",
           "Welcome! Your account has been created successfully."
         );
@@ -161,6 +164,7 @@ export const useSignup = () => {
 export const useLogout = () => {
   const queryClient = useQueryClient();
   const { logout } = useUserStore();
+  const { success } = useNotifications();
 
   return useMutation({
     mutationFn: async () => {
@@ -177,10 +181,7 @@ export const useLogout = () => {
       // Clear all queries
       queryClient.clear();
 
-      ErrorHandler.showSuccess(
-        "Logged Out",
-        "You have been successfully logged out."
-      );
+      success("Logged Out", "You have been successfully logged out.");
     },
     onError: (error: unknown) => {
       ErrorHandler.handle(error, "logout");

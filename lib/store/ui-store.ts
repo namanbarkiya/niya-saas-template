@@ -1,4 +1,5 @@
 import { persist } from "zustand/middleware";
+import { toast } from "sonner";
 import { create } from "zustand";
 
 export interface Notification {
@@ -40,6 +41,12 @@ export interface UIStore extends UIState {
   ) => void;
   removeNotification: (id: string) => void;
   clearNotifications: () => void;
+
+  // Notification service methods that show Sonner toasts
+  showSuccess: (title: string, message?: string, duration?: number) => void;
+  showError: (title: string, message?: string, duration?: number) => void;
+  showWarning: (title: string, message?: string, duration?: number) => void;
+  showInfo: (title: string, message?: string, duration?: number) => void;
 
   // Modal actions
   openModal: (
@@ -98,6 +105,75 @@ export const useUIStore = create<UIStore>()(
         }));
       },
       clearNotifications: () => set({ notifications: [] }),
+
+      // Notification service methods that show Sonner toasts
+      showSuccess: (title: string, message?: string, duration?: number) => {
+        // Add to store
+        const notification = {
+          type: "success" as const,
+          title,
+          message: message || "",
+          duration,
+        };
+        get().addNotification(notification);
+
+        // Show Sonner toast
+        toast.success(title, {
+          description: message,
+          duration: duration || 4000,
+        });
+      },
+
+      showError: (title: string, message?: string, duration?: number) => {
+        // Add to store
+        const notification = {
+          type: "error" as const,
+          title,
+          message: message || "",
+          duration,
+        };
+        get().addNotification(notification);
+
+        // Show Sonner toast
+        toast.error(title, {
+          description: message,
+          duration: duration || 5000,
+        });
+      },
+
+      showWarning: (title: string, message?: string, duration?: number) => {
+        // Add to store
+        const notification = {
+          type: "warning" as const,
+          title,
+          message: message || "",
+          duration,
+        };
+        get().addNotification(notification);
+
+        // Show Sonner toast
+        toast.warning(title, {
+          description: message,
+          duration: duration || 6000,
+        });
+      },
+
+      showInfo: (title: string, message?: string, duration?: number) => {
+        // Add to store
+        const notification = {
+          type: "info" as const,
+          title,
+          message: message || "",
+          duration,
+        };
+        get().addNotification(notification);
+
+        // Show Sonner toast
+        toast.info(title, {
+          description: message,
+          duration: duration || 4000,
+        });
+      },
 
       // Modal actions
       openModal: (id, component, props) => {

@@ -1,6 +1,17 @@
 "use client";
 
-import { Calendar, LogOut, Mail, User } from "lucide-react";
+import {
+  AlertCircle,
+  Bell,
+  Calendar,
+  CheckCircle,
+  Info,
+  LogOut,
+  Mail,
+  User,
+  XCircle,
+} from "lucide-react";
+import { toast } from "sonner";
 import { useAuth } from "@/components/providers/auth-provider";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,11 +21,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useNotifications } from "@/lib/hooks/use-notifications";
 import { useLogout } from "@/lib/query/hooks/auth";
 
 export default function DashboardPage() {
   const { user, isLoading } = useAuth();
   const logoutMutation = useLogout();
+  const { success, error, warning, info } = useNotifications();
 
   const handleLogout = async () => {
     try {
@@ -22,6 +35,50 @@ export default function DashboardPage() {
     } catch (error) {
       console.error("Logout error:", error);
     }
+  };
+
+  // Notification demo functions using consolidated notification service
+  const showSuccessToast = () => {
+    success("Success!", "This is a success notification with a description.");
+  };
+
+  const showErrorToast = () => {
+    error("Error!", "This is an error notification with a description.");
+  };
+
+  const showWarningToast = () => {
+    warning("Warning!", "This is a warning notification with a description.");
+  };
+
+  const showInfoToast = () => {
+    info("Info!", "This is an info notification with a description.");
+  };
+
+  const showPromiseToast = () => {
+    const promise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        Math.random() > 0.5 ? resolve("Success!") : reject("Failed!");
+      }, 2000);
+    });
+
+    // For promise toasts, we still need to use toast directly since ErrorHandler doesn't have a promise method
+    toast.promise(promise, {
+      loading: "Loading...",
+      success: "Promise resolved successfully!",
+      error: "Promise rejected!",
+    });
+  };
+
+  const showCustomToast = () => {
+    // For custom toasts with actions, we still need to use toast directly
+    toast("Custom Toast", {
+      description: "This is a custom toast with custom styling.",
+      duration: 10000,
+      action: {
+        label: "Undo",
+        onClick: () => console.log("Undo clicked"),
+      },
+    });
   };
 
   if (isLoading) {
@@ -111,6 +168,77 @@ export default function DashboardPage() {
             <p className="text-sm text-muted-foreground">
               No recent activity to display.
             </p>
+          </CardContent>
+        </Card>
+
+        {/* Sonner Notification Demo Card */}
+        <Card className="md:col-span-2 lg:col-span-3">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Bell className="h-5 w-5" />
+              Notification Testing
+            </CardTitle>
+            <CardDescription>
+              Test consolidated notification service with UI Store integration
+              and error handling
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+              <Button
+                variant="outline"
+                onClick={showSuccessToast}
+                className="flex items-center gap-2"
+              >
+                <CheckCircle className="h-4 w-4 text-green-500" />
+                Success Toast
+              </Button>
+
+              <Button
+                variant="outline"
+                onClick={showErrorToast}
+                className="flex items-center gap-2"
+              >
+                <XCircle className="h-4 w-4 text-red-500" />
+                Error Toast
+              </Button>
+
+              <Button
+                variant="outline"
+                onClick={showWarningToast}
+                className="flex items-center gap-2"
+              >
+                <AlertCircle className="h-4 w-4 text-yellow-500" />
+                Warning Toast
+              </Button>
+
+              <Button
+                variant="outline"
+                onClick={showInfoToast}
+                className="flex items-center gap-2"
+              >
+                <Info className="h-4 w-4 text-blue-500" />
+                Info Toast
+              </Button>
+
+              <Button
+                variant="outline"
+                onClick={showPromiseToast}
+                className="flex items-center gap-2"
+              >
+                <Bell className="h-4 w-4" />
+                Promise Toast
+              </Button>
+
+              <Button
+                variant="outline"
+                onClick={showCustomToast}
+                className="flex items-center gap-2"
+              >
+                <Bell className="h-4 w-4" />
+                Custom Toast
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </div>

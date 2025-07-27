@@ -86,7 +86,6 @@ modern-next-landing/
 │   ├── hooks/                        # Custom React Hooks
 │   │   ├── index.ts                 # Hook exports
 │   │   ├── use-dark-mode.ts         # Dark mode hook
-│   │   └── use-error-handler.ts     # Error handling hook
 │   ├── index.ts                      # Main library exports
 │   ├── query/                        # React Query Setup
 │   │   ├── client.ts                # Query client configuration
@@ -139,69 +138,69 @@ modern-next-landing/
 
 ### **1. FEATURE-BASED ORGANIZATION**
 
--   Group related components, hooks, and utilities by feature
--   Keep feature-specific code close together
--   Use barrel exports for clean imports
+- Group related components, hooks, and utilities by feature
+- Keep feature-specific code close together
+- Use barrel exports for clean imports
 
 ### **2. SEPARATION OF CONCERNS**
 
--   UI components in `components/ui/`
--   Feature components in `components/features/`
--   Business logic in `lib/`
--   Types in `types/`
+- UI components in `components/ui/`
+- Feature components in `components/features/`
+- Business logic in `lib/`
+- Types in `types/`
 
 ### **3. SCALABILITY**
 
--   Easy to add new features
--   Clear import paths
--   Modular architecture
--   Reusable components
+- Easy to add new features
+- Clear import paths
+- Modular architecture
+- Reusable components
 
 ### **4. NEXT.JS 15 BEST PRACTICES**
 
--   Use route groups for organization
--   Keep API routes in `app/api/`
--   Use server actions in route files
--   Implement proper loading and error boundaries
+- Use route groups for organization
+- Keep API routes in `app/api/`
+- Use server actions in route files
+- Implement proper loading and error boundaries
 
 ## **IMPORT PATTERNS**
 
 ### **Barrel Exports**
 
 ```typescript
+// ... other exports
+// Usage
+import { Button, Input, Label } from "@/components/ui";
+
 // components/ui/index.ts
 export { Button } from "./button";
 export { Input } from "./input";
 export { Label } from "./label";
-// ... other exports
-
-// Usage
-import { Button, Input, Label } from "@/components/ui";
 ```
 
 ### **Feature Imports**
 
 ```typescript
+// Usage
+import { AuthGuard, LoginButton } from "@/components/features/auth";
+
 // components/features/auth/index.ts
 export { AuthGuard } from "./auth-guard";
 export { AuthProvider } from "./auth-provider";
 export { LoginButton } from "./login-button";
-
-// Usage
-import { AuthGuard, LoginButton } from "@/components/features/auth";
 ```
 
 ### **Library Imports**
 
 ```typescript
+// Usage
+import { cn, useAuth, userStore } from "@/lib";
+
 // lib/index.ts
 export * from "./store";
 export * from "./hooks";
 export * from "./utils";
 export * from "./validations";
-
-// Usage
-import { useAuth, cn, userStore } from "@/lib";
 ```
 
 ## **MIGRATION STRATEGY**

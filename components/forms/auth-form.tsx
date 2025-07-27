@@ -15,8 +15,6 @@ import {
   signupSchema,
 } from "@/lib/validations/auth";
 
-// import { useErrorHandler } from "@/lib/hooks/use-error-handler";
-
 interface AuthFormProps {
   mode: "login" | "signup";
   className?: string;
@@ -30,7 +28,6 @@ export const AuthForm: React.FC<AuthFormProps> = ({
 }) => {
   const loginMutation = useLogin();
   const signupMutation = useSignup();
-  // const { handleError } = useErrorHandler();
 
   const isLogin = mode === "login";
   const schema = isLogin ? loginSchema : signupSchema;

@@ -1,4 +1,4 @@
-import { toast } from "sonner";
+import { useUIStore } from "@/lib/store/ui-store";
 
 export interface AppError {
   message: string;
@@ -8,16 +8,22 @@ export interface AppError {
 }
 
 export class ErrorHandler {
+  /**
+   * Handle any error and show appropriate notification
+   */
   static handle(error: unknown, context?: string): void {
     console.error(`Error in ${context || "unknown context"}:`, error);
 
     // Extract error message and details
     const errorInfo = this.extractErrorInfo(error);
 
-    // Show appropriate toast based on error type
-    this.showErrorToast(errorInfo);
+    // Show appropriate notification based on error type
+    this.showErrorNotification(errorInfo);
   }
 
+  /**
+   * Extract structured error information from various error types
+   */
   private static extractErrorInfo(error: unknown): AppError {
     const errorObj = error as {
       message?: string;
@@ -114,82 +120,48 @@ export class ErrorHandler {
     };
   }
 
-  private static showErrorToast(errorInfo: AppError): void {
+  /**
+   * Show appropriate notification based on error type
+   */
+  private static showErrorNotification(errorInfo: AppError): void {
     const { message, status, code } = errorInfo;
+    const { showError, showWarning } = useUIStore.getState();
 
-    // Don't show toast for validation errors (handled by form components)
+    // Don't show notification for validation errors (handled by form components)
     if (code === "VALIDATION_ERROR") {
       return;
     }
 
-    // Customize toast based on error type
+    // Customize notification based on error type
     switch (code) {
       case "AUTH_INVALID_CREDENTIALS":
-        toast.error("Login Failed", {
-          description: message,
-          duration: 5000,
-        });
+        showError("Login Failed", message, 5000);
         break;
 
       case "AUTH_EMAIL_NOT_CONFIRMED":
-        toast.warning("Email Not Confirmed", {
-          description: message,
-          duration: 8000,
-        });
+        showWarning("Email Not Confirmed", message, 8000);
         break;
 
       case "AUTH_USER_EXISTS":
-        toast.warning("Account Exists", {
-          description: message,
-          duration: 6000,
-        });
+        showWarning("Account Exists", message, 6000);
         break;
 
       case "NETWORK_ERROR":
-        toast.error("Connection Error", {
-          description: message,
-          duration: 8000,
-        });
+        showError("Connection Error", message, 8000);
         break;
 
       default:
         if (status && status >= 500) {
-          toast.error("Server Error", {
-            description:
-              "Something went wrong on our end. Please try again later.",
-            duration: 8000,
-          });
+          console.log("Server Error", message, errorInfo);
+          showError(
+            "Server Error",
+            "Something went wrong on our end. Please try again later.",
+            8000
+          );
         } else {
-          toast.error("Error", {
-            description: message,
-            duration: 5000,
-          });
+          showError("Error", message, 5000);
         }
         break;
     }
-  }
-
-  // Success toast helper
-  static showSuccess(message: string, description?: string): void {
-    toast.success(message, {
-      description,
-      duration: 4000,
-    });
-  }
-
-  // Info toast helper
-  static showInfo(message: string, description?: string): void {
-    toast.info(message, {
-      description,
-      duration: 4000,
-    });
-  }
-
-  // Warning toast helper
-  static showWarning(message: string, description?: string): void {
-    toast.warning(message, {
-      description,
-      duration: 6000,
-    });
   }
 }
