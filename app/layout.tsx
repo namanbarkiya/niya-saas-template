@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import { ErrorBoundary } from "@/components/error";
@@ -178,6 +179,7 @@ export default function RootLayout({
             </AuthProvider>
           </QueryProvider>
         </ErrorBoundary>
+        <Analytics />
       </body>
     </html>
   );
