@@ -3,242 +3,92 @@
 ## **RECOMMENDED PROJECT STRUCTURE**
 
 ```
-niya-saas-template/
+modern-next-landing/
 ├── app/                          # Next.js 15 App Router
-│   ├── (auth)/                   # Route groups for auth pages
-│   │   ├── login/
-│   │   │   ├── page.tsx
-│   │   │   └── actions.ts
-│   │   └── signup/
-│   │       ├── page.tsx
-│   │       └── actions.ts
-│   ├── (dashboard)/              # Route groups for dashboard
-│   │   ├── dashboard/
-│   │   │   ├── layout.tsx
-│   │   │   ├── page.tsx
-│   │   │   └── loading.tsx
-│   │   ├── profile/
-│   │   │   ├── page.tsx
-│   │   │   └── actions.ts
-│   │   └── settings/
-│   │       ├── page.tsx
-│   │       └── actions.ts
-│   ├── (landing)/                # Route groups for landing pages
-│   │   ├── page.tsx
-│   │   └── about/
-│   │       └── page.tsx
 │   ├── api/                      # API Routes
-│   │   ├── auth/
-│   │   │   ├── login/
-│   │   │   │   └── route.ts
-│   │   │   ├── logout/
-│   │   │   │   └── route.ts
-│   │   │   └── refresh/
-│   │   │       └── route.ts
-│   │   ├── users/
-│   │   │   ├── route.ts
-│   │   │   └── [id]/
-│   │   │       └── route.ts
-│   │   └── webhooks/
-│   │       └── supabase/
-│   │           └── route.ts
-│   ├── error.tsx                 # Global error boundary
+│   ├── dashboard/                # Dashboard pages
+│   ├── login/                    # Login page
+│   ├── signup/                   # Signup page
+│   ├── error/                    # Error pages
 │   ├── globals.css               # Global styles
 │   ├── layout.tsx                # Root layout
-│   ├── loading.tsx               # Global loading
-│   ├── middleware.ts              # Next.js middleware
-│   └── not-found.tsx             # 404 page
+│   ├── middleware.ts             # Next.js middleware
+│   ├── page.tsx                  # Landing page
+│   ├── robots.ts                 # SEO
+│   └── sitemap.ts               # SEO
 ├── components/                    # React Components
-│   ├── ui/                       # Base UI Components (shadcn/ui style)
+│   ├── ui/                       # Base UI Components
 │   │   ├── button.tsx
 │   │   ├── input.tsx
 │   │   ├── label.tsx
-│   │   ├── modal.tsx
-│   │   ├── toast.tsx
-│   │   ├── tooltip.tsx
-│   │   ├── dropdown-menu.tsx
-│   │   ├── form.tsx
-│   │   ├── select.tsx
-│   │   ├── checkbox.tsx
-│   │   ├── radio-group.tsx
-│   │   ├── switch.tsx
-│   │   ├── textarea.tsx
 │   │   ├── card.tsx
-│   │   ├── badge.tsx
-│   │   ├── avatar.tsx
-│   │   ├── progress.tsx
-│   │   ├── skeleton.tsx
-│   │   ├── separator.tsx
-│   │   ├── tabs.tsx
-│   │   ├── accordion.tsx
-│   │   ├── alert.tsx
-│   │   ├── alert-dialog.tsx
 │   │   ├── calendar.tsx
-│   │   ├── date-picker.tsx
-│   │   ├── popover.tsx
-│   │   ├── sheet.tsx
-│   │   ├── table.tsx
-│   │   ├── pagination.tsx
-│   │   └── index.ts              # Barrel exports
+│   │   ├── magicui/              # Third-party UI components
+│   │   └── index.ts
 │   ├── forms/                    # Form Components
+│   │   ├── auth-form.tsx
 │   │   ├── form-field.tsx
-│   │   ├── form-section.tsx
-│   │   ├── form-error.tsx
-│   │   ├── form-success.tsx
 │   │   ├── form-submit.tsx
 │   │   ├── login-form.tsx
-│   │   ├── signup-form.tsx
-│   │   ├── profile-form.tsx
 │   │   └── index.ts
-│   ├── layout/                   # Layout Components
-│   │   ├── header.tsx
-│   │   ├── footer.tsx
-│   │   ├── sidebar.tsx
-│   │   ├── navigation.tsx
-│   │   ├── breadcrumb.tsx
-│   │   ├── page-header.tsx
+│   ├── landing/                  # Landing page components
+│   │   ├── sections/             # Landing sections
+│   │   │   ├── hero.tsx
+│   │   │   ├── navbar.tsx
+│   │   │   ├── features.tsx
+│   │   │   ├── footer.tsx
+│   │   │   ├── tweet-gallery.tsx
+│   │   │   ├── animated-beam-demo.tsx
+│   │   │   ├── animated-list-demo.tsx
+│   │   │   └── index.ts
+│   │   └── section-header.tsx
+│   ├── auth/                     # Authentication components
+│   │   ├── auth-guard.tsx
 │   │   └── index.ts
-│   ├── features/                 # Feature-specific Components
-│   │   ├── auth/                 # Authentication features
-│   │   │   ├── auth-guard.tsx
-│   │   │   ├── auth-provider.tsx
-│   │   │   ├── login-button.tsx
-│   │   │   ├── logout-button.tsx
-│   │   │   └── index.ts
-│   │   ├── dashboard/            # Dashboard features
-│   │   │   ├── dashboard-layout.tsx
-│   │   │   ├── dashboard-nav.tsx
-│   │   │   ├── stats-card.tsx
-│   │   │   ├── activity-feed.tsx
-│   │   │   ├── quick-actions.tsx
-│   │   │   └── index.ts
-│   │   ├── landing/              # Landing page features
-│   │   │   ├── hero-section.tsx
-│   │   │   ├── features-section.tsx
-│   │   │   ├── testimonials.tsx
-│   │   │   ├── pricing-section.tsx
-│   │   │   ├── cta-section.tsx
-│   │   │   └── index.ts
-│   │   └── shared/               # Shared features
-│   │       ├── theme-toggle.tsx
-│   │       ├── language-selector.tsx
-│   │       ├── search-bar.tsx
-│   │       ├── notification-bell.tsx
-│   │       └── index.ts
-│   └── providers/                # Context Providers
-│       ├── auth-provider.tsx
-│       ├── theme-provider.tsx
-│       ├── query-provider.tsx
-│       ├── store-provider.tsx
-│       └── index.ts
+│   ├── error/                    # Error components
+│   │   ├── error-boundary.tsx
+│   │   └── index.ts
+│   ├── providers/                # Context Providers
+│   │   ├── auth-provider.tsx
+│   │   ├── query-provider.tsx
+│   │   ├── sonner-provider.tsx
+│   │   └── index.ts
+│   └── seo/                      # SEO components
+│       └── page-seo.tsx
 ├── lib/                          # Library and Utilities
+│   ├── utils/                    # Utility Functions
+│   │   ├── cn.ts                 # Class name utility
+│   │   ├── error-handler.ts      # Error handling
+│   │   └── index.ts
+│   ├── hooks/                    # Custom React Hooks
+│   │   ├── use-error-handler.ts
+│   │   ├── use-dark-mode.ts
+│   │   └── index.ts
 │   ├── store/                    # State Management
 │   │   ├── user-store.ts
 │   │   ├── ui-store.ts
 │   │   ├── app-store.ts
-│   │   ├── atoms/                # Jotai atoms
-│   │   │   ├── auth-atoms.ts
-│   │   │   ├── theme-atoms.ts
-│   │   │   ├── form-atoms.ts
-│   │   │   ├── navigation-atoms.ts
-│   │   │   └── index.ts
-│   │   └── index.ts
-│   ├── hooks/                    # Custom React Hooks
-│   │   ├── use-auth.ts
-│   │   ├── use-theme.ts
-│   │   ├── use-form.ts
-│   │   ├── use-api.ts
-│   │   ├── use-local-storage.ts
-│   │   ├── use-debounce.ts
-│   │   ├── use-throttle.ts
-│   │   ├── use-media-query.ts
-│   │   ├── use-keyboard-shortcuts.ts
-│   │   └── index.ts
-│   ├── api/                      # API Functions
-│   │   ├── auth.ts
-│   │   ├── users.ts
-│   │   ├── dashboard.ts
-│   │   ├── notifications.ts
-│   │   ├── types.ts
+│   │   ├── atoms/
 │   │   └── index.ts
 │   ├── validations/              # Zod Schemas
-│   │   ├── auth-schemas.ts
-│   │   ├── user-schemas.ts
-│   │   ├── form-schemas.ts
-│   │   ├── api-schemas.ts
-│   │   └── index.ts
-│   ├── utils/                    # Utility Functions
-│   │   ├── cn.ts                 # Class name utility
-│   │   ├── format.ts             # Formatting utilities
-│   │   ├── validation.ts         # Validation utilities
-│   │   ├── constants.ts          # App constants
-│   │   ├── helpers.ts            # Helper functions
+│   │   ├── auth.ts
 │   │   └── index.ts
 │   ├── supabase/                 # Supabase Configuration
 │   │   ├── client.ts
 │   │   ├── server.ts
 │   │   ├── middleware.ts
-│   │   ├── types.ts
 │   │   └── index.ts
 │   ├── query/                    # React Query Setup
 │   │   ├── client.ts
+│   │   ├── error-handler.ts
 │   │   ├── hooks/
-│   │   │   ├── auth-hooks.ts
-│   │   │   ├── user-hooks.ts
-│   │   │   └── index.ts
 │   │   └── index.ts
-│   └── constants/                # Application Constants
-│       ├── routes.ts
-│       ├── api-endpoints.ts
-│       ├── validation-messages.ts
-│       ├── theme.ts
-│       └── index.ts
-├── types/                        # TypeScript Type Definitions
-│   ├── auth.ts
-│   ├── user.ts
-│   ├── api.ts
-│   ├── forms.ts
-│   ├── ui.ts
-│   ├── supabase.ts
-│   └── index.ts
-├── styles/                       # Global Styles
-│   ├── globals.css
-│   ├── components.css
-│   ├── utilities.css
-│   └── themes.css
+│   └── index.ts                  # Main library exports
 ├── public/                       # Static Assets
-│   ├── images/
-│   ├── icons/
-│   ├── fonts/
-│   └── favicon.ico
-├── tests/                        # Test Files
-│   ├── __mocks__/
-│   ├── components/
-│   ├── hooks/
-│   ├── utils/
-│   └── setup.ts
-├── docs/                         # Documentation
-│   ├── api/
-│   ├── components/
-│   ├── architecture/
-│   └── deployment.md
-├── scripts/                      # Build and Utility Scripts
-│   ├── build.ts
-│   ├── dev.ts
-│   └── deploy.ts
-├── .env.example                  # Environment Variables Example
-├── .env.local                    # Local Environment Variables
-├── .env.production               # Production Environment Variables
-├── .env.development              # Development Environment Variables
 ├── next.config.ts                # Next.js Configuration
-├── tailwind.config.ts            # Tailwind CSS Configuration
 ├── tsconfig.json                 # TypeScript Configuration
 ├── package.json                  # Dependencies
-├── README.md                     # Project Documentation
-└── project-details/              # Project Planning
-    ├── 01-todo-list.md
-    ├── 02-folder-structure.md
-    └── 03-technical-description.md
+└── README.md                     # Project Documentation
 ```
 
 ## **FOLDER ORGANIZATION PRINCIPLES**

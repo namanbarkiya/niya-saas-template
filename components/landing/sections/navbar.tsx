@@ -11,8 +11,8 @@ import {
     BookOpen,
 } from "lucide-react";
 
-import { Dock, DockIcon } from "@/components/landing/magicui/dock";
-import { useDarkMode } from "@/lib/useDarkMode";
+import { Dock, DockIcon } from "@/components/ui/magicui/dock";
+import { useDarkMode } from "@/lib/hooks/use-dark-mode";
 import { cn } from "@/lib/utils";
 
 export type IconProps = React.HTMLAttributes<SVGElement>;

@@ -10,10 +10,10 @@ import {
 
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
-import AnimatedBeamMultipleOutputDemo from "../animated-beam-demo";
-import AnimatedListDemo from "../animated-list-demo";
-import { BentoCard, BentoGrid } from "@/components/landing/magicui/bento-grid";
-import { Marquee } from "@/components/landing/magicui/marquee";
+import AnimatedBeamMultipleOutputDemo from "./animated-beam-demo";
+import AnimatedListDemo from "./animated-list-demo";
+import { BentoCard, BentoGrid } from "@/components/ui/magicui/bento-grid";
+import { Marquee } from "@/components/ui/magicui/marquee";
 
 const techStack = [
     {

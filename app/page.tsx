@@ -3,7 +3,7 @@ import Hero from "@/components/landing/sections/hero";
 import Features from "@/components/landing/sections/features";
 import TweetGallery from "@/components/landing/sections/tweet-gallery";
 import { SectionHeader } from "@/components/landing/section-header";
-import { ScrollProgress } from "@/components/landing/magicui/scroll-progress";
+import { ScrollProgress } from "@/components/ui/magicui/scroll-progress";
 import Navbar from "@/components/landing/sections/navbar";
 import Footer from "@/components/landing/sections/footer";
 

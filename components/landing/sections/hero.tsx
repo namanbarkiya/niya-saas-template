@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { AuroraText } from "@/components/landing/magicui/aurora-text";
-import { InteractiveHoverButton } from "@/components/landing/magicui/interactive-hover-button";
-import { AnimatedShinyText } from "@/components/landing/magicui/animated-shiny-text";
-import { WordRotate } from "@/components/landing/magicui/word-rotate";
+import { AuroraText } from "@/components/ui/magicui/aurora-text";
+import { InteractiveHoverButton } from "@/components/ui/magicui/interactive-hover-button";
+import { AnimatedShinyText } from "@/components/ui/magicui/animated-shiny-text";
+import { WordRotate } from "@/components/ui/magicui/word-rotate";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
 

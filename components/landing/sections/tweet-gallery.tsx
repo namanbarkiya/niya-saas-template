@@ -1,4 +1,4 @@
-import { TweetCard } from "@/components/landing/magicui/tweet-card";
+import { TweetCard } from "@/components/ui/magicui/tweet-card";
 
 const tweets = [
     { id: "1678577280489234432", key: 4 },
