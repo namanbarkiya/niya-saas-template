@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useEffect } from "react";
 import { useUserStore, User } from "@/lib/store/user-store";
 import { useCurrentUser, useCurrentSession } from "@/lib/query/hooks/auth";
+import { User as SupabaseUser } from "@supabase/supabase-js";
 
 interface AuthContextType {
     isAuthenticated: boolean;
@@ -25,15 +26,22 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-    const { setUser, setSession, setLoading, isAuthenticated } = useUserStore();
+    const {
+        setUser,
+        setSession,
+        setLoading,
+        isAuthenticated,
+        user: storeUser,
+    } = useUserStore();
 
-    const { data: user, isLoading: userLoading } = useCurrentUser();
+    const { data: supabaseUser, isLoading: userLoading } = useCurrentUser();
     const { data: session, isLoading: sessionLoading } = useCurrentSession();
 
     const isLoading = userLoading || sessionLoading;
 
     useEffect(() => {
-        if (user && user.email) {
+        if (supabaseUser && supabaseUser.email) {
+            const user = supabaseUser as SupabaseUser;
             setUser({
                 id: user.id,
                 email: user.email as string,
@@ -42,11 +50,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 created_at: user.created_at,
                 updated_at: user.updated_at || user.created_at,
             });
-        } else if (user) {
+        } else if (supabaseUser) {
             // If user exists but no email, clear the user
             setUser(null);
         }
-    }, [user, setUser]);
+    }, [supabaseUser, setUser]);
 
     useEffect(() => {
         if (session) {
@@ -61,7 +69,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const value: AuthContextType = {
         isAuthenticated,
         isLoading,
-        user: null, // We'll handle user conversion in useEffect
+        user: storeUser,
     };
 
     return (
