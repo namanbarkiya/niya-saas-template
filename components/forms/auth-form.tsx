@@ -1,19 +1,25 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import React from "react";
+import { useState } from "react";
+import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormField, FormSubmit } from "@/components/forms";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useNotifications } from "@/lib/hooks/use-notifications";
 import { useLogin, useSignup } from "@/lib/query/hooks/auth";
-import { cn } from "@/lib/utils";
-import {
-  LoginFormData,
-  SignupFormData,
-  loginSchema,
-  signupSchema,
-} from "@/lib/validations/auth";
+import { loginSchema, signupSchema } from "@/lib/validations/auth";
+
+interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+interface SignupFormData extends LoginFormData {
+  name: string;
+  confirmPassword: string;
+}
 
 interface AuthFormProps {
   mode: "login" | "signup";
@@ -26,56 +32,45 @@ export const AuthForm: React.FC<AuthFormProps> = ({
   className,
   onSuccess,
 }) => {
+  const isLogin = mode === "login";
+  const [isLoading, setIsLoading] = useState(false);
+  const { success } = useNotifications();
+
   const loginMutation = useLogin();
   const signupMutation = useSignup();
-
-  const isLogin = mode === "login";
-  const schema = isLogin ? loginSchema : signupSchema;
-  const mutation = isLogin ? loginMutation : signupMutation;
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<LoginFormData | SignupFormData>({
-    resolver: zodResolver(schema),
-    mode: "onChange",
+    resolver: zodResolver(isLogin ? loginSchema : signupSchema),
   });
 
   const onSubmit = async (data: LoginFormData | SignupFormData) => {
+    setIsLoading(true);
     try {
       if (isLogin) {
         await loginMutation.mutateAsync(data as LoginFormData);
+        success("Login Successful", "Welcome back!");
       } else {
         await signupMutation.mutateAsync(data as SignupFormData);
+        success(
+          "Account Created",
+          "Please check your email to confirm your account."
+        );
       }
       onSuccess?.();
     } catch (error) {
-      // Error handling is done in the mutation hooks via ErrorHandler
-      // handleError(error, `auth-form-${mode}`);
       console.error("Auth error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const isLoading = isSubmitting || mutation.isPending;
-
   return (
-    <form
-      className={cn("flex flex-col gap-6", className)}
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold">
-          {isLogin ? "Login to your account" : "Create your account"}
-        </h1>
-        <p className="text-balance text-sm text-muted-foreground">
-          {isLogin
-            ? "Enter your email below to login to your account"
-            : "Enter your details below to create your account"}
-        </p>
-      </div>
-
-      <div className="grid gap-6">
+    <form onSubmit={handleSubmit(onSubmit)} className={className}>
+      <div className="space-y-4">
         {!isLogin && (
           <FormField
             label="Name"
@@ -111,12 +106,12 @@ export const AuthForm: React.FC<AuthFormProps> = ({
             />
             {isLogin && (
               <div className="flex justify-end">
-                <a
+                <Link
                   href="#"
                   className="text-sm underline-offset-4 hover:underline"
                 >
                   Forgot your password?
-                </a>
+                </Link>
               </div>
             )}
           </div>
@@ -164,16 +159,16 @@ export const AuthForm: React.FC<AuthFormProps> = ({
         {isLogin ? (
           <>
             Don&apos;t have an account?{" "}
-            <a href="/signup" className="underline underline-offset-4">
+            <Link href="/signup" className="underline underline-offset-4">
               Sign up
-            </a>
+            </Link>
           </>
         ) : (
           <>
             Already have an account?{" "}
-            <a href="/login" className="underline underline-offset-4">
+            <Link href="/login" className="underline underline-offset-4">
               Login
-            </a>
+            </Link>
           </>
         )}
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { ArrowUpIcon, ExternalLinkIcon } from "@radix-ui/react-icons";
 import { Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -69,6 +70,8 @@ export default function Footer({ className }: { className?: string }) {
               <li>
                 <a
                   href="https://github.com/namanbarkiya/niya-saas-template/blob/main/project-details/technical-description.md"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors"
                 >
                   Documentation
