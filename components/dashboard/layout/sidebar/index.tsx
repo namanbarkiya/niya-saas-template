@@ -12,7 +12,7 @@ import {
 import { HistorySectionSidebar } from "@/components/dashboard/layout/sidebar/history-section";
 import { MainSectionSidebar } from "@/components/dashboard/layout/sidebar/main-section";
 import { TeamSwitcher } from "@/components/dashboard/layout/team-switcher";
-import { NavUser } from "@/components/dashboard/layout/user-popover";
+import { UserPopover } from "@/components/dashboard/layout/user-popover";
 import {
   Sidebar,
   SidebarContent,
@@ -23,11 +23,6 @@ import {
 
 // This is sample data.
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   teams: [
     {
       name: "Niya Inc",
@@ -144,7 +139,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <HistorySectionSidebar history={data.history} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <UserPopover />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
