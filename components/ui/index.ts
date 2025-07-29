@@ -3,6 +3,7 @@ export { Input } from "./input";
 export { Label } from "./label";
 export { Card } from "./card";
 export { Calendar } from "./calendar";
+export { Badge } from "./badge";
 
 // MagicUI components
 export { AnimatedBeam } from "./magicui/animated-beam";

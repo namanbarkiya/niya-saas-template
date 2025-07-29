@@ -3,11 +3,17 @@
 import * as React from "react";
 import {
   AudioWaveform,
+  BookOpen,
   Bot,
+  Code,
   Command,
+  Database,
   Folder,
   GalleryVerticalEnd,
+  Palette,
+  Shield,
   SquareTerminal,
+  Zap,
 } from "lucide-react";
 import { HistorySectionSidebar } from "@/components/dashboard/layout/sidebar/history-section";
 import { MainSectionSidebar } from "@/components/dashboard/layout/sidebar/main-section";
@@ -30,75 +36,83 @@ const data = {
       plan: "Enterprise",
     },
     {
-      name: "Crazy LLP.",
+      name: "Crazy LLP",
       logo: AudioWaveform,
       plan: "Startup",
     },
     {
-      name: "Chat IO.",
+      name: "Chat IO",
       logo: Command,
       plan: "Free",
     },
   ],
   navMain: [
     {
-      title: "Playground",
-      url: "#",
+      title: "Dashboard",
+      url: "/dashboard",
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
-          title: "History",
-          url: "#",
+          title: "Overview",
+          url: "/dashboard",
         },
         {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
+          title: "Account",
+          url: "/dashboard/account",
         },
       ],
     },
     {
-      title: "Models",
-      url: "#",
-      icon: Bot,
+      title: "Documentation",
+      url: "/dashboard/docs",
+      icon: BookOpen,
       items: [
         {
-          title: "Genesis",
-          url: "#",
+          title: "Overview",
+          url: "/dashboard/docs",
         },
         {
-          title: "Explorer",
-          url: "#",
+          title: "Hooks & Utilities",
+          url: "/dashboard/docs/hooks",
         },
         {
-          title: "Quantum",
-          url: "#",
+          title: "State Management",
+          url: "/dashboard/docs/state",
+        },
+        {
+          title: "UI Components",
+          url: "/dashboard/docs/components",
+        },
+        {
+          title: "Authentication",
+          url: "/dashboard/docs/auth",
+        },
+        {
+          title: "Error Handling",
+          url: "/dashboard/docs/errors",
         },
       ],
     },
     {
-      title: "Projects",
+      title: "Components",
       url: "#",
-      icon: Folder,
+      icon: Palette,
       items: [
         {
-          title: "Project 1",
+          title: "Breadcrumbs",
           url: "#",
         },
         {
-          title: "Project 2",
+          title: "Notifications",
           url: "#",
         },
         {
-          title: "Project 3",
+          title: "Forms",
           url: "#",
         },
         {
-          title: "Project 4",
+          title: "Layouts",
           url: "#",
         },
       ],
