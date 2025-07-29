@@ -3,20 +3,16 @@
 import * as React from "react";
 import {
   AudioWaveform,
-  BookOpen,
   Bot,
   Command,
-  Frame,
+  Folder,
   GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
   SquareTerminal,
 } from "lucide-react";
-import { NavUser } from "@/components/dashboard/layout/nav-user";
-import { NavMain } from "@/components/dashboard/layout/sidebar/nav-main";
-import { NavProjects } from "@/components/dashboard/layout/sidebar/nav-projects";
+import { HistorySectionSidebar } from "@/components/dashboard/layout/sidebar/history-section";
+import { MainSectionSidebar } from "@/components/dashboard/layout/sidebar/main-section";
 import { TeamSwitcher } from "@/components/dashboard/layout/team-switcher";
+import { NavUser } from "@/components/dashboard/layout/user-popover";
 import {
   Sidebar,
   SidebarContent,
@@ -34,17 +30,17 @@ const data = {
   },
   teams: [
     {
-      name: "Acme Inc",
+      name: "Niya Inc",
       logo: GalleryVerticalEnd,
       plan: "Enterprise",
     },
     {
-      name: "Acme Corp.",
+      name: "Crazy LLP.",
       logo: AudioWaveform,
       plan: "Startup",
     },
     {
-      name: "Evil Corp.",
+      name: "Chat IO.",
       logo: Command,
       plan: "Free",
     },
@@ -90,67 +86,49 @@ const data = {
       ],
     },
     {
-      title: "Documentation",
+      title: "Projects",
       url: "#",
-      icon: BookOpen,
+      icon: Folder,
       items: [
         {
-          title: "Introduction",
+          title: "Project 1",
           url: "#",
         },
         {
-          title: "Get Started",
+          title: "Project 2",
           url: "#",
         },
         {
-          title: "Tutorials",
+          title: "Project 3",
           url: "#",
         },
         {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
+          title: "Project 4",
           url: "#",
         },
       ],
     },
   ],
-  projects: [
+  history: [
     {
-      name: "Design Engineering",
+      name: "how to create a router in nextjs",
       url: "#",
-      icon: Frame,
     },
     {
-      name: "Sales & Marketing",
+      name: "what is the best way to learn magic",
       url: "#",
-      icon: PieChart,
     },
     {
-      name: "Travel",
+      name: "how to make someone believe in you",
       url: "#",
-      icon: Map,
+    },
+    {
+      name: "top 10 best places to visit in the world",
+      url: "#",
+    },
+    {
+      name: "If I was a cat, how would I live my life?",
+      url: "#",
     },
   ],
 };
@@ -162,8 +140,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <MainSectionSidebar items={data.navMain} />
+        <HistorySectionSidebar history={data.history} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
