@@ -1,36 +1,25 @@
 {
-    "name": "Niya - Modern Next.js Template",
-    "short_name": "Niya",
-    "description": "Production-ready Next.js 15 template for developers and AI startups with authentication, state management, and beautiful UI components.",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#000000",
-    "orientation": "portrait-primary",
-    "icons": [
-        {
-            "src": "/favicon.ico",
-            "sizes": "16x16 32x32",
-            "type": "image/x-icon"
-        },
-        {
-            "src": "/icon-192.png",
-            "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "maskable any"
-        },
-        {
-            "src": "/icon-512.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "maskable any"
-        }
-    ],
-    "categories": ["developer", "productivity", "utilities"],
-    "lang": "en",
-    "dir": "ltr",
-    "author": "Naman Barkiya",
-    "homepage_url": "https://saas.nbarkiya.xyz",
-    "scope": "/",
-    "prefer_related_applications": false
+  "name": "Niya - Modern Next.js Template",
+  "short_name": "Niya",
+  "description": "Production-ready Next.js 15 template for developers and AI startups with authentication, state management, and beautiful UI components.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://res.cloudinary.com/dbfvcn3f6/image/upload/v1692357294/assets/naman-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["developer", "productivity", "utilities"],
+  "lang": "en",
+  "dir": "ltr",
+  "author": "Naman Barkiya",
+  "homepage_url": "https://saas.nbarkiya.xyz",
+  "scope": "/",
+  "prefer_related_applications": false
 }

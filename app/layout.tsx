@@ -60,20 +60,22 @@ export const metadata: Metadata = {
     siteName: "Niya Template",
     images: [
       {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Niya - Modern Next.js Template",
+        url: "https://res.cloudinary.com/dbfvcn3f6/image/upload/v1692357294/assets/naman-logo.png",
+        width: 512,
+        height: 512,
+        alt: "Niya Logo",
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "Niya - Modern Next.js Template for Developers & AI Startups",
     description:
       "Production-ready Next.js 15 template with Supabase, TypeScript, Tailwind CSS, and modern best practices.",
     creator: "@namanbarkiya",
-    images: ["/og-image.png"],
+    images: [
+      "https://res.cloudinary.com/dbfvcn3f6/image/upload/v1692357294/assets/naman-logo.png",
+    ],
   },
   robots: {
     index: true,
@@ -87,9 +89,10 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: "your-google-verification-code",
-    yandex: "your-yandex-verification-code",
-    yahoo: "your-yahoo-verification-code",
+    // Add your actual verification codes here when you have them
+    // google: "your-google-verification-code",
+    // yandex: "your-yandex-verification-code",
+    // yahoo: "your-yahoo-verification-code",
   },
   category: "technology",
 };
@@ -145,6 +148,8 @@ export default function RootLayout({
               softwareVersion: "1.0.0",
               datePublished: "2025-01-01",
               downloadUrl: "https://github.com/namanbarkiya/niya-saas-template",
+              image:
+                "https://res.cloudinary.com/dbfvcn3f6/image/upload/v1692357294/assets/naman-logo.png",
               featureList: [
                 "Next.js 15 with App Router",
                 "TypeScript support",
@@ -157,6 +162,31 @@ export default function RootLayout({
                 "Modern UI components",
                 "Production ready",
               ],
+            }),
+          }}
+        />
+        {/* Structured Data for Website */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Niya - Modern Next.js Template",
+              url: "https://saas.nbarkiya.xyz",
+              description:
+                "Production-ready Next.js 15 template for developers and AI startups",
+              publisher: {
+                "@type": "Person",
+                name: "Naman Barkiya",
+                url: "https://github.com/namanbarkiya",
+              },
+              potentialAction: {
+                "@type": "SearchAction",
+                target:
+                  "https://saas.nbarkiya.xyz/search?q={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
             }),
           }}
         />
