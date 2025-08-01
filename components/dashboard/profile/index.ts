@@ -8,3 +8,4 @@ export { ProfileSocialLinks } from "./profile-social-links";
 export { ProfilePrivacySettings } from "./profile-privacy-settings";
 export { ProfileAccountStatus } from "./profile-account-status";
 export { ProfileDangerZone } from "./profile-danger-zone";
+export { ProfileTabs } from "./profile-tabs";

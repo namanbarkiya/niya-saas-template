@@ -12,7 +12,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useUpdateMyProfile } from "@/lib/query/hooks/profile";
-import type { UpdateUserProfileInput } from "@/lib/types/database";
+import { User } from "@/lib/store/user-store";
+import type { UpdateUserProfileInput, UserProfile } from "@/lib/types/database";
 import { validateProfileData } from "@/lib/utils/profile-utils";
 import { ProfileAvatar } from "./profile-avatar";
 import { ProfileBasicInfo } from "./profile-basic-info";
@@ -22,8 +23,8 @@ import { ProfileProfessionalInfo } from "./profile-professional-info";
 import { ProfileSocialLinks } from "./profile-social-links";
 
 interface ProfileFormProps {
-  profile: any;
-  user: any;
+  profile: UserProfile;
+  user: User;
   formData: UpdateUserProfileInput;
   setFormData: (data: UpdateUserProfileInput) => void;
 }

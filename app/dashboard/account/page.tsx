@@ -6,15 +6,17 @@ import { toast } from "sonner";
 import {
   ProfileAccountStatus,
   ProfileDangerZone,
-  ProfileForm,
+  ProfileTabs,
 } from "@/components/dashboard/profile";
 import { useAuth } from "@/components/providers/auth-provider";
-import { useLogout, useMyProfile } from "@/lib/query/hooks";
-import type { UpdateUserProfileInput } from "@/lib/types/database";
+import { useLogout, useMyProfile, useUpdateMyProfile } from "@/lib/query/hooks";
+import type { UpdateUserProfileInput, UserProfile } from "@/lib/types/database";
+import { validateProfileData } from "@/lib/utils/profile-utils";
 
 export default function AccountPage() {
   const { user, isLoading } = useAuth();
   const { data: profile, isLoading: profileLoading } = useMyProfile();
+  const updateProfileMutation = useUpdateMyProfile();
   const logoutMutation = useLogout();
   const router = useRouter();
   const [formData, setFormData] = useState<UpdateUserProfileInput>({
@@ -68,6 +70,25 @@ export default function AccountPage() {
     }
   }, [profile]);
 
+  const handleSave = () => {
+    // Client-side validation
+    const validation = validateProfileData(formData);
+    if (!validation.isValid) {
+      toast.error(`Validation errors: ${validation.errors.join(", ")}`);
+      return;
+    }
+
+    updateProfileMutation.mutate(formData, {
+      onSuccess: () => {
+        toast.success("Profile updated successfully!");
+      },
+      onError: (error) => {
+        console.error("Error updating profile:", error);
+        toast.error("Failed to update profile");
+      },
+    });
+  };
+
   const handleLogout = async () => {
     try {
       await logoutMutation.mutateAsync();
@@ -101,17 +122,19 @@ export default function AccountPage() {
       <div className="grid gap-8 lg:grid-cols-3">
         {/* Main Profile Section */}
         <div className="lg:col-span-2">
-          <ProfileForm
-            profile={profile}
+          <ProfileTabs
+            profile={profile || null}
             user={user}
             formData={formData}
             setFormData={setFormData}
+            onSave={handleSave}
+            isSaving={updateProfileMutation.isPending}
           />
         </div>
 
         {/* Sidebar */}
         <div className="space-y-6">
-          <ProfileAccountStatus profile={profile} />
+          <ProfileAccountStatus profile={profile || ({} as UserProfile)} />
           <ProfileDangerZone
             onLogout={handleLogout}
             isLoggingOut={logoutMutation.isPending}

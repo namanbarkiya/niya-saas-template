@@ -1,7 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { UserProfile } from "@/lib/types/database";
 
 interface ProfileAccountStatusProps {
-  profile: any;
+  profile: UserProfile;
 }
 
 export function ProfileAccountStatus({ profile }: ProfileAccountStatusProps) {
