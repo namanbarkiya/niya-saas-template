@@ -4,6 +4,9 @@ export { Label } from "./label";
 export { Card } from "./card";
 export { Calendar } from "./calendar";
 export { Badge } from "./badge";
+export { Textarea } from "./textarea";
+export { Switch } from "./switch";
+export { Progress } from "./progress";
 
 // MagicUI components
 export { AnimatedBeam } from "./magicui/animated-beam";
