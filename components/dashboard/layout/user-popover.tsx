@@ -29,9 +29,11 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useLogout } from "@/lib/query/hooks/auth";
+import { useMyProfile } from "@/lib/query/hooks/profile";
 
 export function UserPopover() {
   const { user, isLoading } = useAuth();
+  const { data: profile, isLoading: profileLoading } = useMyProfile();
   const logoutMutation = useLogout();
   const router = useRouter();
   const { isMobile } = useSidebar();
@@ -46,7 +48,7 @@ export function UserPopover() {
     }
   };
 
-  if (isLoading || !user) {
+  if (isLoading || profileLoading || !user) {
     return (
       <SidebarMenu>
         <SidebarMenuItem>
@@ -62,6 +64,10 @@ export function UserPopover() {
     );
   }
 
+  const displayName =
+    profile?.display_name || profile?.full_name || user.name || "Anonymous";
+  const avatarUrl = profile?.avatar_url || user.avatar_url;
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -72,15 +78,13 @@ export function UserPopover() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.avatar_url} alt={user.name || "User"} />
+                <AvatarImage src={avatarUrl} alt={displayName} />
                 <AvatarFallback className="rounded-lg">
-                  {user.name?.charAt(0)?.toUpperCase() ||
-                    user.email?.charAt(0)?.toUpperCase() ||
-                    "U"}
+                  {displayName.charAt(0).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
+                <span className="truncate font-medium">{displayName}</span>
                 <span className="truncate text-xs">{user.email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
@@ -95,18 +99,13 @@ export function UserPopover() {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage
-                    src={user.avatar_url}
-                    alt={user.name || "User"}
-                  />
+                  <AvatarImage src={avatarUrl} alt={displayName} />
                   <AvatarFallback className="rounded-lg">
-                    {user.name?.charAt(0)?.toUpperCase() ||
-                      user.email?.charAt(0)?.toUpperCase() ||
-                      "U"}
+                    {displayName.charAt(0).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
+                  <span className="truncate font-medium">{displayName}</span>
                   <span className="truncate text-xs">{user.email}</span>
                 </div>
               </div>
