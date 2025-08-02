@@ -169,19 +169,18 @@ export function ProfileTabs({
                 </div>
               )}
             </div>
+            <div className="flex items-center justify-between mb-4">
+              <Button
+                onClick={onSave}
+                disabled={isSaving}
+                className="flex items-center gap-2 mt-4"
+              >
+                <Save className="h-4 w-4" />
+                {isSaving ? "Saving..." : "Save Changes"}
+              </Button>
+            </div>
           </CardContent>
         </Card>
-        <div className="flex items-center justify-between mb-4">
-          {/* <h2 className="text-xl font-semibold">Profile</h2> */}
-          <Button
-            onClick={onSave}
-            disabled={isSaving}
-            className="flex items-center gap-2 mt-4"
-          >
-            <Save className="h-4 w-4" />
-            {isSaving ? "Saving..." : "Save Changes"}
-          </Button>
-        </div>
       </div>
     </div>
   );
