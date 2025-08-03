@@ -7,6 +7,7 @@ export { Badge } from "./badge";
 export { Textarea } from "./textarea";
 export { Switch } from "./switch";
 export { Progress } from "./progress";
+export { ScrollArea } from "./scroll-area";
 
 // MagicUI components
 export { AnimatedBeam } from "./magicui/animated-beam";

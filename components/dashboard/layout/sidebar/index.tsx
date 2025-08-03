@@ -64,6 +64,17 @@ const data = {
       ],
     },
     {
+      title: "AI Chat",
+      url: "/dashboard/chat",
+      icon: Bot,
+      items: [
+        {
+          title: "Chat",
+          url: "/dashboard/chat",
+        },
+      ],
+    },
+    {
       title: "Documentation",
       url: "/dashboard/docs",
       icon: BookOpen,
@@ -121,23 +132,23 @@ const data = {
   history: [
     {
       name: "how to create a router in nextjs",
-      url: "#",
+      url: "/dashboard/chat",
     },
     {
       name: "what is the best way to learn magic",
-      url: "#",
+      url: "/dashboard/chat",
     },
     {
       name: "how to make someone believe in you",
-      url: "#",
+      url: "/dashboard/chat",
     },
     {
       name: "top 10 best places to visit in the world",
-      url: "#",
+      url: "/dashboard/chat",
     },
     {
       name: "If I was a cat, how would I live my life?",
-      url: "#",
+      url: "/dashboard/chat",
     },
   ],
 };
