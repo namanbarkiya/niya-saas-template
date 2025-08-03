@@ -1,6 +1,25 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@keyframes bounce-slow {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -8px, 0);
+  }
+  70% {
+    transform: translate3d(0, -4px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s infinite;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -180,4 +199,80 @@
 
 .animate-marquee-vertical {
   animation: marquee-vertical var(--duration, 40s) linear infinite;
+}
+
+/* Prose styles for markdown content */
+.prose {
+  @apply text-foreground;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  @apply text-foreground font-semibold;
+}
+
+.prose h1 {
+  @apply text-2xl mb-4;
+}
+
+.prose h2 {
+  @apply text-xl mb-3;
+}
+
+.prose h3 {
+  @apply text-lg mb-2;
+}
+
+.prose p {
+  @apply mb-3 leading-relaxed;
+}
+
+.prose ul,
+.prose ol {
+  @apply mb-3 pl-6;
+}
+
+.prose li {
+  @apply mb-1;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-primary/20 pl-4 italic text-muted-foreground;
+}
+
+.prose code {
+  @apply bg-muted px-1 py-0.5 rounded text-sm font-mono;
+}
+
+.prose pre {
+  @apply bg-muted p-4 rounded-lg overflow-x-auto;
+}
+
+.prose pre code {
+  @apply bg-transparent p-0;
+}
+
+.prose a {
+  @apply text-primary hover:underline;
+}
+
+.prose strong {
+  @apply font-semibold;
+}
+
+.prose em {
+  @apply italic;
+}
+
+/* Dark mode prose adjustments */
+.dark .prose {
+  @apply text-foreground;
+}
+
+.dark .prose blockquote {
+  @apply border-primary/30;
 }

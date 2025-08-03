@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -38,18 +39,20 @@ export function GlobalBreadcrumb() {
     <Breadcrumb>
       <BreadcrumbList>
         {items.map((item, index) => (
-          <BreadcrumbItem key={index}>
-            {index === items.length - 1 ? (
-              // Last item - current page
-              <BreadcrumbPage>{item.label}</BreadcrumbPage>
-            ) : (
-              // Navigation item
-              <BreadcrumbLink asChild>
-                <Link href={item.href || "#"}>{item.label}</Link>
-              </BreadcrumbLink>
-            )}
+          <React.Fragment key={index}>
+            <BreadcrumbItem>
+              {index === items.length - 1 ? (
+                // Last item - current page
+                <BreadcrumbPage>{item.label}</BreadcrumbPage>
+              ) : (
+                // Navigation item
+                <BreadcrumbLink asChild>
+                  <Link href={item.href || "#"}>{item.label}</Link>
+                </BreadcrumbLink>
+              )}
+            </BreadcrumbItem>
             {index < items.length - 1 && <BreadcrumbSeparator />}
-          </BreadcrumbItem>
+          </React.Fragment>
         ))}
       </BreadcrumbList>
     </Breadcrumb>

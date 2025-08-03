@@ -9,3 +9,4 @@ export { ProfilePrivacySettings } from "./profile-privacy-settings";
 export { ProfileAccountStatus } from "./profile-account-status";
 export { ProfileDangerZone } from "./profile-danger-zone";
 export { ProfileTabs } from "./profile-tabs";
+export { ProfileOverview } from "./profile-overview";

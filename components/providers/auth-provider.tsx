@@ -50,8 +50,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         created_at: user.created_at,
         updated_at: user.updated_at || user.created_at,
       });
-    } else if (supabaseUser) {
-      // If user exists but no email, clear the user
+    } else {
+      // Clear user when supabaseUser is null or doesn't have email
       setUser(null);
     }
   }, [supabaseUser, setUser]);
@@ -59,6 +59,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     if (session) {
       setSession(session);
+    } else {
+      // Clear session when session is null
+      setSession(null);
     }
   }, [session, setSession]);
 
