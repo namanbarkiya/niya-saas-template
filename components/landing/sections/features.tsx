@@ -114,8 +114,8 @@ const features = [
 
 export default function Features() {
   return (
-    <section id="features" className="py-16">
-      <BentoGrid>
+    <section id="features">
+      <BentoGrid className="gap-6">
         {features.map((feature, idx) => (
           <BentoCard key={idx} {...feature} />
         ))}

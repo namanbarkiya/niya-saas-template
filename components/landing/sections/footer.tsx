@@ -13,7 +13,12 @@ export default function Footer({ className }: { className?: string }) {
   };
 
   return (
-    <footer className={cn("w-full border-t pt-12 pb-8 mt-16", className)}>
+    <footer
+      className={cn(
+        "w-full border-t border-white/20 dark:border-white/10 pt-12 pb-8 bg-white/30 dark:bg-neutral-900/30 backdrop-blur-sm backdrop-saturate-150",
+        className
+      )}
+    >
       <div className="max-w-6xl mx-auto px-4">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">

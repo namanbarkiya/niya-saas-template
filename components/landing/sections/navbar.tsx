@@ -50,9 +50,13 @@ export default function Navbar() {
 
   return (
     <div className="fixed top-0 left-0 w-full z-50">
-      <div className="flex items-center justify-between w-full px-6 pt-2">
+      <div className="flex items-center justify-center w-full px-6 pt-4">
         {/* Navigation Dock */}
-        <Dock iconMagnification={60} iconDistance={100}>
+        <Dock
+          iconMagnification={60}
+          iconDistance={100}
+          className="backdrop-blur-md backdrop-saturate-150 bg-white/40 dark:bg-neutral-900/40 border border-white/20 dark:border-white/10 shadow-xl shadow-black/5 dark:shadow-black/20"
+        >
           <DockIcon
             title="Back to Top"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
