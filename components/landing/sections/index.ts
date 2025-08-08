@@ -5,3 +5,7 @@ export { default as Footer } from "./footer";
 export { default as TweetGallery } from "./tweet-gallery";
 export { default as AnimatedBeamDemo } from "./animated-beam-demo";
 export { default as AnimatedListDemo } from "./animated-list-demo";
+export { default as Stats } from "./stats";
+export { default as Testimonials } from "./testimonials";
+export { default as Pricing } from "./pricing";
+export { default as CTA } from "./cta";

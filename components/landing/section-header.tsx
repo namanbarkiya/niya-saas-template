@@ -3,18 +3,39 @@ import { cn } from "@/lib/utils";
 
 interface SectionHeaderProps {
   title: string;
+  subtitle?: string;
   className?: string;
+  titleClassName?: string;
+  subtitleClassName?: string;
 }
-// reduce spacing between letters in font
-export function SectionHeader({ title, className }: SectionHeaderProps) {
+
+export function SectionHeader({
+  title,
+  subtitle,
+  className,
+  titleClassName,
+  subtitleClassName,
+}: SectionHeaderProps) {
   return (
-    <h2
-      className={cn(
-        "text-3xl lg:text-5xl font-semibold text-center md:text-left tracking-tighter mb-6 sm:mb-10 mt-28 sm:mt-52",
-        className
+    <div className={cn("text-center mb-12", className)}>
+      <h2
+        className={cn(
+          "text-2xl md:text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100 mb-3",
+          titleClassName
+        )}
+      >
+        {title}
+      </h2>
+      {subtitle && (
+        <p
+          className={cn(
+            "text-base text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto",
+            subtitleClassName
+          )}
+        >
+          {subtitle}
+        </p>
       )}
-    >
-      {title}
-    </h2>
+    </div>
   );
 }
