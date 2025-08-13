@@ -5,15 +5,10 @@ import {
   AudioWaveform,
   BookOpen,
   Bot,
-  Code,
   Command,
-  Database,
-  Folder,
   GalleryVerticalEnd,
   Palette,
-  Shield,
   SquareTerminal,
-  Zap,
 } from "lucide-react";
 import { HistorySectionSidebar } from "@/components/dashboard/layout/sidebar/history-section";
 import { MainSectionSidebar } from "@/components/dashboard/layout/sidebar/main-section";
@@ -96,6 +91,10 @@ const data = {
           url: "/dashboard/docs/components",
         },
         {
+          title: "Chat Thread",
+          url: "/dashboard/docs/chat",
+        },
+        {
           title: "Authentication",
           url: "/dashboard/docs/auth",
         },
@@ -107,24 +106,12 @@ const data = {
     },
     {
       title: "Components",
-      url: "#",
+      url: "/dashboard/components",
       icon: Palette,
       items: [
         {
-          title: "Breadcrumbs",
-          url: "#",
-        },
-        {
-          title: "Notifications",
-          url: "#",
-        },
-        {
-          title: "Forms",
-          url: "#",
-        },
-        {
-          title: "Layouts",
-          url: "#",
+          title: "Chat Thread",
+          url: "/dashboard/components/chat",
         },
       ],
     },
