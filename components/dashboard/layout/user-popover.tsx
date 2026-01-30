@@ -7,7 +7,9 @@ import {
   ChevronsUpDown,
   CreditCard,
   LogOut,
+  Moon,
   Sparkles,
+  Sun,
   User,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -22,12 +24,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Switch } from "@/components/ui/switch";
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useDarkMode } from "@/lib/hooks/use-dark-mode";
 import { useLogout } from "@/lib/query/hooks/auth";
 import { useMyProfile } from "@/lib/query/hooks/profile";
 
@@ -37,6 +41,7 @@ export function UserPopover() {
   const logoutMutation = useLogout();
   const router = useRouter();
   const { isMobile } = useSidebar();
+  const [isDark, toggleDark] = useDarkMode();
 
   const handleLogout = async () => {
     try {
@@ -139,6 +144,28 @@ export function UserPopover() {
                 <Bell />
                 Notifications
               </DropdownMenuItem>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="text-xs font-normal text-muted-foreground px-2 py-1.5">
+                Appearance
+              </DropdownMenuLabel>
+              <div
+                className="flex items-center justify-between gap-2 px-2 py-1.5 text-sm outline-none"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {isDark ? (
+                  <Moon className="size-4 shrink-0" />
+                ) : (
+                  <Sun className="size-4 shrink-0" />
+                )}
+                <span className="flex-1">Dark mode</span>
+                <Switch
+                  checked={isDark}
+                  onCheckedChange={() => toggleDark()}
+                  aria-label="Toggle dark mode"
+                />
+              </div>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem
