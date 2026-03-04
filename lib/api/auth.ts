@@ -23,6 +23,17 @@ export const authApi = {
 
   refresh: () => api.post<AuthResponse>("/auth/refresh"),
 
+  verifyOtp: (email: string, otp: string) =>
+    api.post<{ status: string; message: string }>("/auth/verify-otp", {
+      email,
+      otp,
+    }),
+
+  resendOtp: (email: string) =>
+    api.post<{ status: string; message: string }>("/auth/resend-otp", {
+      email,
+    }),
+
   confirmEmail: (token: string) =>
     api.get<{ status: string; message: string }>(
       `/auth/confirm-email?token=${encodeURIComponent(token)}`

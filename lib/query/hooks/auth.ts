@@ -103,13 +103,12 @@ export const useSignup = () => {
       name: string;
     }) => authApi.signUp({ email, password, name }),
     onMutate: () => setLoading(true),
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
       setLoading(false);
-      success(
-        "Account Created",
-        "Please check your email to verify your account."
+      success("Account Created", "Enter the 6-digit code sent to your email.");
+      router.push(
+        `/verify-otp?email=${encodeURIComponent(variables.email)}`
       );
-      router.push("/login");
     },
     onError: (error: unknown) => {
       setLoading(false);
@@ -137,6 +136,43 @@ export const useLogout = () => {
     },
     onError: (error: unknown) => {
       ErrorHandler.handle(error, "logout");
+    },
+  });
+};
+
+// ---------------------------------------------------------------------------
+// Verify OTP
+// ---------------------------------------------------------------------------
+export const useVerifyOtp = () => {
+  const { success } = useNotifications();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: ({ email, otp }: { email: string; otp: string }) =>
+      authApi.verifyOtp(email, otp),
+    onSuccess: () => {
+      success("Email Verified", "Your account is ready. Please sign in.");
+      router.push("/login?verified=1");
+    },
+    onError: (error: unknown) => {
+      ErrorHandler.handle(error, "verify OTP");
+    },
+  });
+};
+
+// ---------------------------------------------------------------------------
+// Resend OTP
+// ---------------------------------------------------------------------------
+export const useResendOtp = () => {
+  const { success } = useNotifications();
+
+  return useMutation({
+    mutationFn: (email: string) => authApi.resendOtp(email),
+    onSuccess: () => {
+      success("Code Sent", "A new verification code has been sent.");
+    },
+    onError: (error: unknown) => {
+      ErrorHandler.handle(error, "resend OTP");
     },
   });
 };

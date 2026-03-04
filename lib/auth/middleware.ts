@@ -10,7 +10,7 @@ const API_BASE =
   (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000") + "/api/v1";
 
 /** Public paths that do NOT require authentication. */
-const PUBLIC_PATHS = ["/login", "/signup", "/auth", "/error", "/api/auth"];
+const PUBLIC_PATHS = ["/login", "/signup", "/verify-otp", "/auth", "/error", "/api/auth"];
 
 function isPublicPath(pathname: string): boolean {
   return PUBLIC_PATHS.some((p) => pathname.startsWith(p));
