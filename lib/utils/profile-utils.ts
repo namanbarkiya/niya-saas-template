@@ -12,6 +12,7 @@ import {
   RECOMMENDED_PROFILE_FIELDS,
   REQUIRED_PROFILE_FIELDS,
 } from "@/lib/types/database";
+import type { ProfileResponse } from "@/lib/api/types";
 
 // ---------------------------------------------------------------------------
 // API-backed operations
@@ -67,7 +68,7 @@ export async function getPublicProfile(_id: string): Promise<unknown | null> {
 // ---------------------------------------------------------------------------
 
 export function calculateProfileCompletion(
-  profile: UserProfile | null
+  profile: UserProfile | ProfileResponse | null
 ): ProfileCompletionStatus {
   if (!profile) {
     return {
@@ -79,17 +80,17 @@ export function calculateProfileCompletion(
 
   const allFields = [...REQUIRED_PROFILE_FIELDS, ...RECOMMENDED_PROFILE_FIELDS];
   const filled = allFields.filter((f) => {
-    const v = profile[f as keyof UserProfile];
+    const v = (profile as unknown as Record<string, unknown>)[f];
     return v !== null && v !== undefined && v !== "";
   });
   const missing = allFields.filter((f) => {
-    const v = profile[f as keyof UserProfile];
+    const v = (profile as unknown as Record<string, unknown>)[f];
     return v === null || v === undefined || v === "";
   });
 
   return {
     isComplete: REQUIRED_PROFILE_FIELDS.every((f) => {
-      const v = profile[f as keyof UserProfile];
+      const v = (profile as unknown as Record<string, unknown>)[f];
       return v !== null && v !== undefined && v !== "";
     }),
     missingFields: missing,
