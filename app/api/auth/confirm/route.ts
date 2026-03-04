@@ -1,27 +1,32 @@
-import { redirect } from "next/navigation";
-import { type NextRequest } from "next/server";
-import { type EmailOtpType } from "@supabase/supabase-js";
-import { createClient } from "@/lib/supabase/server";
+import { NextRequest, NextResponse } from "next/server";
 
+const API_BASE =
+  (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000") + "/api/v1";
+
+/**
+ * GET /api/auth/confirm?token=xxx
+ *
+ * Proxies email confirmation to the FastAPI backend then redirects to login.
+ */
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
-  const token_hash = searchParams.get("token_hash");
-  const type = searchParams.get("type") as EmailOtpType | null;
-  const next = searchParams.get("next") ?? "/";
+  const token = request.nextUrl.searchParams.get("token");
 
-  if (token_hash && type) {
-    const supabase = await createClient();
-
-    const { error } = await supabase.auth.verifyOtp({
-      type,
-      token_hash,
-    });
-    if (!error) {
-      // redirect user to specified redirect URL or root of app
-      redirect(next);
-    }
+  if (!token) {
+    return NextResponse.redirect(new URL("/error?reason=missing_token", request.url));
   }
 
-  // redirect the user to an error page with some instructions
-  redirect("/error");
+  try {
+    const res = await fetch(
+      `${API_BASE}/auth/confirm-email?token=${encodeURIComponent(token)}`,
+      { method: "GET" }
+    );
+
+    if (!res.ok) {
+      return NextResponse.redirect(new URL("/error?reason=invalid_token", request.url));
+    }
+
+    return NextResponse.redirect(new URL("/login?verified=1", request.url));
+  } catch {
+    return NextResponse.redirect(new URL("/error?reason=server_error", request.url));
+  }
 }

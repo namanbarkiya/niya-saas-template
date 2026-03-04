@@ -10,34 +10,34 @@ export interface UserProfile {
   id: string;
   user_id: string;
 
-  // Basic information (from auth.users)
-  email: string;
-  full_name?: string;
-  display_name?: string;
-  first_name?: string;
-  last_name?: string;
+  // Basic information (email lives on the user record, not the profile)
+  email?: string | null;
+  full_name?: string | null;
+  display_name?: string | null;
+  first_name?: string | null;
+  last_name?: string | null;
 
   // Contact information
-  phone?: string;
-  country?: string;
+  phone?: string | null;
+  country?: string | null;
   timezone: string;
   locale: string;
 
   // Profile media
-  avatar_url?: string;
-  banner_url?: string;
-  bio?: string;
+  avatar_url?: string | null;
+  banner_url?: string | null;
+  bio?: string | null;
 
   // Social links
-  website?: string;
-  twitter_url?: string;
-  linkedin_url?: string;
-  github_url?: string;
+  website?: string | null;
+  twitter_url?: string | null;
+  linkedin_url?: string | null;
+  github_url?: string | null;
 
   // Professional information
-  company?: string;
-  job_title?: string;
-  industry?: string;
+  company?: string | null;
+  job_title?: string | null;
+  industry?: string | null;
 
   // Preferences and settings
   is_public: boolean;
@@ -47,7 +47,7 @@ export interface UserProfile {
 
   // Metadata
   last_seen_at: string;
-  profile_completed_at?: string;
+  profile_completed_at?: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -210,7 +210,7 @@ export const PROFILE_DEFAULTS = {
 
 // Profile field categories for organization
 export const PROFILE_FIELD_CATEGORIES = {
-  BASIC_INFO: ["full_name", "display_name", "first_name", "last_name", "email"],
+  BASIC_INFO: ["full_name", "display_name", "first_name", "last_name"],
   CONTACT: ["phone", "country", "timezone", "locale"],
   MEDIA: ["avatar_url", "banner_url", "bio"],
   SOCIAL: ["website", "twitter_url", "linkedin_url", "github_url"],
@@ -224,7 +224,7 @@ export const PROFILE_FIELD_CATEGORIES = {
 } as const;
 
 // Required fields for profile completion
-export const REQUIRED_PROFILE_FIELDS = ["email", "full_name"] as const;
+export const REQUIRED_PROFILE_FIELDS = ["full_name"] as const;
 
 // Optional but recommended fields
 export const RECOMMENDED_PROFILE_FIELDS = [

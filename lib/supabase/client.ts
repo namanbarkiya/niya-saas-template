@@ -1,8 +1,3 @@
-import { createBrowserClient } from "@supabase/ssr";
-
-export function createClient() {
-  return createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
-}
+// Supabase removed — use lib/api/client.ts instead.
+// This stub keeps TypeScript happy during the transition.
+export {};

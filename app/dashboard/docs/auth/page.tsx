@@ -338,7 +338,7 @@ export default function OptionalAuthPage() {
                 <div className="flex items-center justify-between">
                   <span>Current User:</span>
                   <span className="font-mono">
-                    {currentUser?.email || "N/A"}
+                    {currentUser?.user?.email || "N/A"}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
