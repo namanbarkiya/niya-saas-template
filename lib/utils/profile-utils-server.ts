@@ -1,111 +1,64 @@
-// =====================================================
-// PROFILE UTILITY FUNCTIONS (SERVER-SIDE)
-// =====================================================
-// Server-side utility functions for profile management
-// =====================================================
-import { createClient } from "@/lib/supabase/server";
+/**
+ * Server-side profile utilities.
+ * Calls the FastAPI backend directly (server → server, no browser cookies).
+ * Requires Authorization header with a valid access token.
+ */
 import type { UpdateUserProfileInput, UserProfile } from "@/lib/types/database";
 
-// =====================================================
-// SERVER-SIDE PROFILE OPERATIONS
-// =====================================================
+const API_BASE =
+  (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000") + "/api/v1";
 
-/**
- * Get user profile on server side
- */
+async function serverFetch<T>(
+  path: string,
+  token: string,
+  options: RequestInit = {}
+): Promise<T | null> {
+  try {
+    const res = await fetch(`${API_BASE}${path}`, {
+      ...options,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+        ...(options.headers ?? {}),
+      },
+    });
+    if (!res.ok) return null;
+    return (await res.json()) as T;
+  } catch {
+    return null;
+  }
+}
+
 export async function getServerUserProfile(
-  userId: string
+  _userId: string,
+  accessToken: string
 ): Promise<UserProfile | null> {
-  try {
-    const supabase = await createClient();
-    const { data, error } = await supabase
-      .from("user_profiles")
-      .select("*")
-      .eq("user_id", userId)
-      .single();
-
-    if (error) {
-      console.error("Error fetching server profile:", error);
-      return null;
-    }
-
-    return data;
-  } catch (error) {
-    console.error("Error in getServerUserProfile:", error);
-    return null;
-  }
+  const data = await serverFetch<{ user: unknown; profile: UserProfile | null }>(
+    "/users/me",
+    accessToken
+  );
+  return data?.profile ?? null;
 }
 
-/**
- * Update user profile on server side
- */
 export async function updateServerUserProfile(
-  userId: string,
-  updates: UpdateUserProfileInput
+  _userId: string,
+  updates: UpdateUserProfileInput,
+  accessToken: string
 ): Promise<UserProfile | null> {
-  try {
-    const supabase = await createClient();
-    const { data, error } = await supabase
-      .from("user_profiles")
-      .update(updates)
-      .eq("user_id", userId)
-      .select()
-      .single();
-
-    if (error) {
-      console.error("Error updating server profile:", error);
-      return null;
-    }
-
-    return data;
-  } catch (error) {
-    console.error("Error in updateServerUserProfile:", error);
-    return null;
-  }
+  const data = await serverFetch<{ user: unknown; profile: UserProfile | null }>(
+    "/users/me",
+    accessToken,
+    { method: "PUT", body: JSON.stringify(updates) }
+  );
+  return data?.profile ?? null;
 }
 
-/**
- * Get all user profiles (admin function)
- */
+/** Admin-level listing is not exposed by this API — returns empty array. */
 export async function getAllUserProfiles(): Promise<UserProfile[]> {
-  try {
-    const supabase = await createClient();
-    const { data, error } = await supabase
-      .from("user_profiles")
-      .select("*")
-      .order("created_at", { ascending: false });
-
-    if (error) {
-      console.error("Error fetching all profiles:", error);
-      return [];
-    }
-
-    return data || [];
-  } catch (error) {
-    console.error("Error in getAllUserProfiles:", error);
-    return [];
-  }
+  return [];
 }
 
-/**
- * Delete user profile (admin function)
- */
-export async function deleteUserProfile(userId: string): Promise<boolean> {
-  try {
-    const supabase = await createClient();
-    const { error } = await supabase
-      .from("user_profiles")
-      .delete()
-      .eq("user_id", userId);
-
-    if (error) {
-      console.error("Error deleting profile:", error);
-      return false;
-    }
-
-    return true;
-  } catch (error) {
-    console.error("Error in deleteUserProfile:", error);
-    return false;
-  }
+/** Admin-level delete is not exposed by this API — returns false. */
+export async function deleteUserProfile(_userId: string): Promise<boolean> {
+  return false;
 }

@@ -1,100 +1,81 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { authApi } from "@/lib/api/auth";
+import { usersApi } from "@/lib/api/users";
+import { ApiRequestError } from "@/lib/api/client";
 import { useNotifications } from "@/lib/hooks/use-notifications";
 import { useUserStore } from "@/lib/store/user-store";
-import { createClient } from "@/lib/supabase/client";
 import { ErrorHandler } from "@/lib/utils/error-handler";
 import { queryKeys } from "../client";
+import type { MeResponse } from "@/lib/api/types";
 
-// Hook to get current user
+// ---------------------------------------------------------------------------
+// Get current user (calls /users/me)
+// ---------------------------------------------------------------------------
 export const useCurrentUser = () => {
   return useQuery({
     queryKey: queryKeys.auth.user,
-    queryFn: async () => {
-      const supabase = createClient();
-      const {
-        data: { user },
-        error,
-      } = await supabase.auth.getUser();
-
-      if (error) {
-        throw error;
+    queryFn: async (): Promise<MeResponse | null> => {
+      try {
+        return await usersApi.me();
+      } catch (err) {
+        if (err instanceof ApiRequestError && err.status === 401) return null;
+        throw err;
       }
-
-      return user;
     },
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 5 * 60 * 1000,
+    retry: false,
   });
 };
 
-// Hook to get current session
+/**
+ * useCurrentSession — compatibility alias.
+ * Returns whether a valid session exists. The real session is managed via
+ * HttpOnly cookies; this hook simply wraps useCurrentUser for UI purposes.
+ */
 export const useCurrentSession = () => {
   return useQuery({
     queryKey: queryKeys.auth.session,
     queryFn: async () => {
-      const supabase = createClient();
-      const {
-        data: { session },
-        error,
-      } = await supabase.auth.getSession();
-
-      if (error) {
-        throw error;
+      try {
+        const data = await usersApi.me();
+        return data ? { user: data.user } : null;
+      } catch {
+        return null;
       }
-
-      return session;
     },
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 5 * 60 * 1000,
+    retry: false,
   });
 };
 
-// Hook for login mutation
+// ---------------------------------------------------------------------------
+// Login
+// ---------------------------------------------------------------------------
 export const useLogin = () => {
   const queryClient = useQueryClient();
-  const { setUser, setSession, setLoading } = useUserStore();
+  const { setUser, setLoading } = useUserStore();
   const { success } = useNotifications();
+  const router = useRouter();
 
   return useMutation({
-    mutationFn: async ({
-      email,
-      password,
-    }: {
-      email: string;
-      password: string;
-    }) => {
-      const supabase = createClient();
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) {
-        throw error;
-      }
-
-      return data;
-    },
-    onMutate: () => {
-      setLoading(true);
-    },
+    mutationFn: ({ email, password }: { email: string; password: string }) =>
+      authApi.signIn({ email, password }),
+    onMutate: () => setLoading(true),
     onSuccess: (data) => {
-      if (data.user && data.user.email) {
-        setUser({
-          id: data.user.id,
-          email: data.user.email as string,
-          name: data.user.user_metadata?.name,
-          avatar_url: data.user.user_metadata?.avatar_url,
-          created_at: data.user.created_at,
-          updated_at: data.user.updated_at || data.user.created_at,
-        });
-      }
-      setSession(data.session);
+      setUser({
+        id: data.user.id,
+        email: data.user.email,
+        name: data.profile?.full_name ?? undefined,
+        avatar_url: data.profile?.avatar_url ?? undefined,
+        created_at: data.user.created_at,
+        updated_at: data.user.updated_at,
+      });
       setLoading(false);
-
-      // Invalidate and refetch user data
       queryClient.invalidateQueries({ queryKey: queryKeys.auth.user });
       queryClient.invalidateQueries({ queryKey: queryKeys.auth.session });
-
       success("Login Successful", "Welcome back!");
+      router.push("/dashboard");
     },
     onError: (error: unknown) => {
       setLoading(false);
@@ -103,13 +84,16 @@ export const useLogin = () => {
   });
 };
 
-// Hook for signup mutation
+// ---------------------------------------------------------------------------
+// Signup
+// ---------------------------------------------------------------------------
 export const useSignup = () => {
   const { setLoading } = useUserStore();
   const { success } = useNotifications();
+  const router = useRouter();
 
   return useMutation({
-    mutationFn: async ({
+    mutationFn: ({
       email,
       password,
       name,
@@ -117,41 +101,15 @@ export const useSignup = () => {
       email: string;
       password: string;
       name: string;
-    }) => {
-      const supabase = createClient();
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            name,
-          },
-        },
-      });
-
-      if (error) {
-        throw error;
-      }
-
-      return data;
-    },
-    onMutate: () => {
-      setLoading(true);
-    },
-    onSuccess: (data) => {
+    }) => authApi.signUp({ email, password, name }),
+    onMutate: () => setLoading(true),
+    onSuccess: () => {
       setLoading(false);
-
-      if (data.user && !data.session) {
-        success(
-          "Account Created",
-          "Please check your email to confirm your account."
-        );
-      } else {
-        success(
-          "Account Created",
-          "Welcome! Your account has been created successfully."
-        );
-      }
+      success(
+        "Account Created",
+        "Please check your email to verify your account."
+      );
+      router.push("/login");
     },
     onError: (error: unknown) => {
       setLoading(false);
@@ -160,31 +118,70 @@ export const useSignup = () => {
   });
 };
 
-// Hook for logout mutation
+// ---------------------------------------------------------------------------
+// Logout
+// ---------------------------------------------------------------------------
 export const useLogout = () => {
   const queryClient = useQueryClient();
   const { logout } = useUserStore();
   const { success } = useNotifications();
+  const router = useRouter();
 
   return useMutation({
-    mutationFn: async () => {
-      const supabase = createClient();
-      const { error } = await supabase.auth.signOut();
-
-      if (error) {
-        throw error;
-      }
-    },
+    mutationFn: () => authApi.signOut(),
     onSuccess: () => {
       logout();
-
-      // Clear all queries
       queryClient.clear();
-
       success("Logged Out", "You have been successfully logged out.");
+      router.push("/login");
     },
     onError: (error: unknown) => {
       ErrorHandler.handle(error, "logout");
+    },
+  });
+};
+
+// ---------------------------------------------------------------------------
+// Forgot password
+// ---------------------------------------------------------------------------
+export const useForgotPassword = () => {
+  const { success } = useNotifications();
+
+  return useMutation({
+    mutationFn: (email: string) => authApi.forgotPassword(email),
+    onSuccess: () => {
+      success(
+        "Email Sent",
+        "If this email is registered, you will receive reset instructions."
+      );
+    },
+    onError: (error: unknown) => {
+      ErrorHandler.handle(error, "forgot password");
+    },
+  });
+};
+
+// ---------------------------------------------------------------------------
+// Reset password
+// ---------------------------------------------------------------------------
+export const useResetPassword = () => {
+  const { success } = useNotifications();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: ({
+      token,
+      new_password,
+    }: {
+      token: string;
+      new_password: string;
+    }) => authApi.resetPassword(token, new_password),
+    onSuccess: () => {
+      success("Password Updated", "Please sign in with your new password.");
+      router.push("/login");
+    },
+    onError: (error: unknown) => {
+      ErrorHandler.handle(error, "reset password");
     },
   });
 };
